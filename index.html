@@ -70,8 +70,8 @@ em,.it{font-style:italic;font-family:var(--serif)}
 .brand .nm{font-family:var(--serifD);font-weight:700;font-size:1.28rem;letter-spacing:.14em;color:var(--stone)}
 .brand .nm b{color:var(--goldLight);font-weight:700}
 .brand .tag{font-family:var(--serif);font-style:italic;font-size:.74rem;color:rgba(239,231,214,.55);margin-left:.2rem}
-.hdr-back{-webkit-appearance:none;appearance:none;background:none;cursor:pointer;font-size:.72rem;color:rgba(239,231,214,.55);border:none;font-family:var(--serif);letter-spacing:.04em;padding:.2rem .4rem}
-.hdr-back:hover{color:var(--goldLight)}
+.hdr-back{-webkit-appearance:none;appearance:none;cursor:pointer;font-size:.86rem;color:var(--goldLight);background:rgba(201,163,90,.08);border:1px solid rgba(201,163,90,.4);border-radius:20px;font-family:var(--serif);letter-spacing:.05em;padding:.32rem .9rem;transition:.18s}
+.hdr-back:hover{background:var(--gold);color:var(--stone);border-color:var(--gold)}
 /* nav tabs */
 .nav-bar{display:flex;flex-wrap:wrap;gap:0;padding:0 .6rem .15rem;justify-content:center}
 .nav-bar button{
@@ -252,7 +252,7 @@ p{margin:.7rem 0}
   .brand .col{font-size:1rem}
   .brand .nm{font-size:1.05rem;letter-spacing:.1em}
   .brand .tag{display:none}
-  .hdr-back{font-size:.66rem;padding:.18rem .3rem}
+  .hdr-back{font-size:.78rem;padding:.26rem .7rem}
   .nav-bar{gap:0;padding:0 .2rem .1rem}
   .nav-bar button{font-size:.7rem;letter-spacing:.03em;padding:.3rem .42rem .42rem}
   .nav-bar button .ico{margin-right:.18rem;font-size:.85em}
@@ -303,7 +303,7 @@ hr.orn::before{content:"\269C";color:var(--gold);font-size:1.1rem;opacity:.6}
       <span class="nm">AVIDAA&nbsp;<b>STOA</b></span>
       <span class="tag">the painted porch</span>
     </div>
-    <button class="hdr-back" onclick="window.history.length>1?window.history.back():location.href='https://avidaa1.github.io/hub/'">&larr; AVIDAA HUB</button>
+    <button class="hdr-back" onclick="location.href='https://avidaa1.github.io/'">&larr; Home</button>
   </div>
   <nav class="nav-bar" id="nav-bar"></nav>
 </header>
