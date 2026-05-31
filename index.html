@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AVIDAA STOA &mdash; Stoicism from the Painted Porch to the AI Age</title>
+<meta name="description" content="An encyclopedic, sourced archive of Stoicism: Zeno, Cleanthes, Chrysippus, Seneca, Epictetus, Marcus Aurelius &mdash; doctrines, quotes, daily practice, the path from ancient Athens to the digital and AI age. Interactive Stoic advisor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Spectral:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#211c14;            /* near-black warm ink */
+  --ink2:#3a3328;
+  --stone:#efe7d6;          /* parchment */
+  --stone2:#e6dcc6;
+  --stone3:#ddd0b4;
+  --panel:#f6f0e2;
+  --panelEdge:#cdbe9c;
+  --gold:#9a6e2f;           /* aged gold */
+  --gold2:#b8893f;
+  --goldLight:#c9a35a;
+  --crimson:#7c2d2d;        /* roman red */
+  --crimson2:#9b3a34;
+  --teal:#3d6660;           /* verdigris bronze */
+  --muted:#7a6f5c;
+  --line:rgba(33,28,20,.14);
+  --line2:rgba(33,28,20,.08);
+  --r:4px;--rl:8px;
+  --serifD:'Cormorant Garamond',Georgia,serif;
+  --serif:'EB Garamond','Cormorant Garamond',Georgia,serif;
+  --body:'Spectral',Georgia,serif;
+}
+html{
+  font-family:var(--body);
+  color:var(--ink);font-size:16px;line-height:1.72;
+  background:
+    radial-gradient(900px 500px at 12% -5%,rgba(201,163,90,.16),transparent 60%),
+    radial-gradient(700px 600px at 100% 0%,rgba(124,45,45,.07),transparent 55%),
+    var(--stone);
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;
+}
+body{max-width:1000px;margin:0 auto;padding:0 0 5rem;position:relative}
+/* subtle paper grain */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:radial-gradient(rgba(33,28,20,.05) 1px,transparent 1px);
+  background-size:3px 3px;mix-blend-mode:multiply;
+}
+.wrap{position:relative;z-index:1}
+a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(154,110,47,.35)}
+a:hover{color:var(--crimson)}
+h1,h2,h3,h4{font-family:var(--serifD);font-weight:600;line-height:1.12;letter-spacing:.01em}
+em,.it{font-style:italic;font-family:var(--serif)}
+.gk{font-style:italic;color:var(--teal);font-family:var(--serif)}   /* greek/latin terms */
+
+/* ====== HEADER ====== */
+.site-header{
+  position:sticky;top:0;z-index:99;
+  background:linear-gradient(180deg,#1c1810,#272015);
+  color:var(--stone);border-bottom:2px solid var(--gold);
+  box-shadow:0 2px 0 rgba(154,110,47,.4),0 6px 20px rgba(0,0,0,.18);
+  transition:padding .2s ease;
+}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;padding:.55rem 1.1rem .5rem}
+.brand{display:flex;align-items:baseline;gap:.55rem}
+.brand .col{font-size:1.15rem;color:var(--gold);transform:translateY(2px)}
+.brand .nm{font-family:var(--serifD);font-weight:700;font-size:1.28rem;letter-spacing:.14em;color:var(--stone)}
+.brand .nm b{color:var(--goldLight);font-weight:700}
+.brand .tag{font-family:var(--serif);font-style:italic;font-size:.74rem;color:rgba(239,231,214,.55);margin-left:.2rem}
+.hdr-back{-webkit-appearance:none;appearance:none;background:none;cursor:pointer;font-size:.72rem;color:rgba(239,231,214,.55);border:none;font-family:var(--serif);letter-spacing:.04em;padding:.2rem .4rem}
+.hdr-back:hover{color:var(--goldLight)}
+/* nav tabs */
+.nav-bar{display:flex;flex-wrap:wrap;gap:0;padding:0 .6rem .15rem;justify-content:center}
+.nav-bar button{
+  -webkit-appearance:none;appearance:none;background:none;border:none;cursor:pointer;
+  font-family:var(--serif);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;
+  color:rgba(239,231,214,.6);padding:.35rem .7rem .5rem;position:relative;transition:.18s;
+}
+.nav-bar button:hover{color:var(--stone)}
+.nav-bar button.active{color:var(--goldLight)}
+.nav-bar button.active::after{
+  content:"";position:absolute;left:.55rem;right:.55rem;bottom:.18rem;height:2px;
+  background:var(--gold);border-radius:2px;
+}
+.nav-bar button .ico{font-style:normal;margin-right:.28rem;opacity:.85}
+
+/* ====== PAGES ====== */
+.page{display:none;animation:fade .4s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.main{padding:1.6rem 1.2rem 0}
+
+/* hero */
+.hero{
+  text-align:center;padding:2.6rem 1rem 1.6rem;position:relative;
+}
+.hero .eyebrow{font-family:var(--serif);font-style:italic;letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;color:var(--gold);margin-bottom:.7rem}
+.hero h1{font-size:clamp(2.3rem,7vw,3.9rem);font-weight:700;color:var(--ink);letter-spacing:.01em}
+.hero h1 .amp{color:var(--gold);font-style:italic;font-family:var(--serif)}
+.hero .sub{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--ink2);max-width:620px;margin:.9rem auto 0;line-height:1.5}
+.hero .rule{width:120px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.5rem auto .4rem}
+.hero .greek{font-family:var(--serif);font-style:italic;color:var(--teal);font-size:.95rem;letter-spacing:.04em}
+
+/* section heading */
+.sec-hd{
+  font-family:var(--serifD);font-weight:600;font-size:1.55rem;color:var(--ink);
+  margin:2.2rem 0 .2rem;padding-bottom:.35rem;display:flex;align-items:baseline;gap:.6rem;
+  border-bottom:1px solid var(--line);
+}
+.sec-hd .n{font-family:var(--serif);font-style:italic;font-size:.9rem;color:var(--gold);letter-spacing:.08em}
+.sec-intro{font-size:1.02rem;color:var(--ink2);margin:.5rem 0 1.1rem;max-width:760px}
+.lead{font-size:1.06rem;line-height:1.8}
+p{margin:.7rem 0}
+.page p, .card-bd p{max-width:760px}
+
+/* cards (expandable) */
+.card{
+  background:var(--panel);border:1px solid var(--panelEdge);border-radius:var(--rl);
+  margin-bottom:9px;overflow:hidden;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 2px 8px rgba(33,28,20,.04);
+}
+.card-hd{display:flex;align-items:flex-start;gap:.7rem;padding:.85rem 1rem;cursor:pointer;user-select:none}
+.card-hd:hover{background:var(--stone2)}
+.card-em{font-size:1.5rem;flex-shrink:0;line-height:1.1;width:1.7rem;text-align:center}
+.card-tt{font-family:var(--serifD);font-weight:600;font-size:1.18rem;color:var(--ink);line-height:1.15}
+.card-sub{font-size:.82rem;color:var(--muted);font-family:var(--serif);font-style:italic;margin-top:1px}
+.card-arrow{margin-left:auto;color:var(--gold);font-size:.9rem;flex-shrink:0;transition:transform .25s;padding-top:4px}
+.card.open .card-arrow{transform:rotate(90deg)}
+.card-bd{display:none;padding:.4rem 1.15rem 1.15rem;font-size:1rem;color:var(--ink2);line-height:1.8;border-top:1px solid var(--line2)}
+.card.open .card-bd{display:block;animation:fade .3s ease}
+.card-bd h4{font-size:1.05rem;color:var(--ink);margin:.9rem 0 .15rem;letter-spacing:.02em}
+.card-bd ul{margin:.4rem 0 .4rem 1.1rem}
+.card-bd li{margin:.25rem 0}
+.tagline{display:inline-block;font-family:var(--serif);font-style:italic;font-size:.78rem;color:var(--gold);
+  border:1px solid rgba(154,110,47,.3);border-radius:20px;padding:.05rem .65rem;margin:.1rem .3rem .1rem 0}
+
+/* quote block */
+.q{
+  background:linear-gradient(180deg,#fbf7ec,#f4ecdb);
+  border-left:3px solid var(--gold);border-radius:0 var(--rl) var(--rl) 0;
+  padding:1rem 1.2rem;margin:.9rem 0;position:relative;
+}
+.q .mark{font-family:var(--serifD);font-size:2.6rem;color:rgba(154,110,47,.32);position:absolute;top:-.4rem;left:.4rem;line-height:1}
+.q blockquote{font-family:var(--serif);font-style:italic;font-size:1.12rem;color:var(--ink);line-height:1.55;padding-left:1.4rem}
+.q .cite{font-family:var(--serif);font-size:.8rem;color:var(--muted);margin-top:.45rem;padding-left:1.4rem;letter-spacing:.02em}
+.q .cite b{color:var(--gold);font-weight:600;font-style:normal}
+
+/* stat / virtue grid */
+.grid{display:grid;gap:10px;margin:1.1rem 0}
+.g2{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.g4{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.tile{
+  background:var(--panel);border:1px solid var(--panelEdge);border-radius:var(--rl);
+  padding:1rem;box-shadow:0 2px 8px rgba(33,28,20,.04);
+}
+.tile .em{font-size:1.7rem}
+.tile .tt{font-family:var(--serifD);font-weight:600;font-size:1.2rem;color:var(--ink);margin-top:.2rem}
+.tile .gk{display:block;font-size:.85rem;margin:.1rem 0 .4rem}
+.tile .dd{font-size:.92rem;color:var(--ink2);line-height:1.65}
+.tile.gold{border-color:rgba(154,110,47,.4);background:linear-gradient(180deg,#faf4e6,#f3e9d2)}
+
+/* timeline */
+.tl{position:relative;margin:1.2rem 0 1rem;padding-left:1.4rem}
+.tl::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--gold),rgba(154,110,47,.2))}
+.tl-item{position:relative;margin-bottom:1.1rem;padding-left:.6rem}
+.tl-item::before{content:"";position:absolute;left:-1.4rem;top:.45rem;width:11px;height:11px;border-radius:50%;background:var(--stone);border:2px solid var(--gold)}
+.tl-item.crim::before{border-color:var(--crimson)}
+.tl-yr{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold);font-size:.85rem;letter-spacing:.04em}
+.tl-tt{font-family:var(--serifD);font-weight:600;font-size:1.12rem;color:var(--ink);margin:.05rem 0}
+.tl-dd{font-size:.95rem;color:var(--ink2);line-height:1.6}
+
+/* concentric circles diagram */
+.circles{display:flex;justify-content:center;margin:1.2rem 0}
+.note{font-size:.82rem;color:var(--muted);font-style:italic;font-family:var(--serif);background:rgba(154,110,47,.06);
+  border:1px solid rgba(154,110,47,.18);border-radius:var(--r);padding:.6rem .8rem;margin:.7rem 0}
+.flag{border-left:3px solid var(--crimson);background:rgba(124,45,45,.05)}
+.flag .cite b{color:var(--crimson)}
+
+/* practice / interactive */
+.pbtn{
+  -webkit-appearance:none;appearance:none;cursor:pointer;font-family:var(--serif);
+  background:linear-gradient(180deg,#2a2316,#1d1810);color:var(--goldLight);
+  border:1px solid var(--gold);border-radius:var(--r);padding:.55rem 1.2rem;
+  font-size:.95rem;letter-spacing:.04em;transition:.18s;
+}
+.pbtn:hover{background:linear-gradient(180deg,#37301f,#26200f);color:var(--stone)}
+.pbtn.sm{padding:.35rem .8rem;font-size:.85rem}
+.dsbox{
+  background:linear-gradient(180deg,#fbf7ec,#f3e9d2);border:1px solid var(--panelEdge);
+  border-radius:var(--rl);padding:1.4rem 1.3rem;margin:1rem 0;min-height:120px;
+  box-shadow:0 4px 18px rgba(33,28,20,.07);position:relative;
+}
+.dsbox .mk{font-family:var(--serifD);font-size:3rem;color:rgba(154,110,47,.28);position:absolute;top:.2rem;left:.6rem;line-height:1}
+.dsbox blockquote{font-family:var(--serif);font-style:italic;font-size:1.28rem;line-height:1.5;color:var(--ink);padding-left:1.6rem}
+.dsbox .cite{font-family:var(--serif);font-size:.85rem;color:var(--muted);margin-top:.7rem;padding-left:1.6rem}
+.dsbox .cite b{color:var(--gold);font-style:normal}
+.dsbox .reflect{margin-top:.9rem;padding:.7rem 1rem 0 1.6rem;border-top:1px solid var(--line2);font-size:.95rem;color:var(--ink2)}
+
+/* AI advisor (MARCUS) */
+.marcus{
+  background:linear-gradient(180deg,#211b11,#15110a);border:1px solid var(--gold);
+  border-radius:var(--rl);overflow:hidden;margin:1rem 0;box-shadow:0 8px 30px rgba(0,0,0,.18);
+}
+.marcus-hd{display:flex;align-items:center;gap:.7rem;padding:.85rem 1.1rem;border-bottom:1px solid rgba(201,163,90,.25);background:rgba(0,0,0,.2)}
+.marcus-hd .bust{font-size:1.6rem}
+.marcus-hd .nm{font-family:var(--serifD);font-weight:700;color:var(--goldLight);font-size:1.2rem;letter-spacing:.06em}
+.marcus-hd .rl{font-family:var(--serif);font-style:italic;font-size:.78rem;color:rgba(239,231,214,.5)}
+.marcus-log{padding:1rem 1.1rem;max-height:420px;overflow-y:auto;min-height:90px}
+.mrow{margin-bottom:.9rem;display:flex;flex-direction:column}
+.mrow .who{font-family:var(--serif);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
+.mrow.user .who{color:var(--teal);align-self:flex-end}
+.mrow.you{align-items:flex-end}
+.mrow .bub{font-size:1rem;line-height:1.68;max-width:88%;padding:.65rem .9rem;border-radius:10px}
+.mrow.you .bub{background:rgba(61,102,96,.22);color:var(--stone);border:1px solid rgba(61,102,96,.4)}
+.mrow.sage .who{color:var(--goldLight)}
+.mrow.sage .bub{background:rgba(201,163,90,.08);color:#ece3d0;border:1px solid rgba(201,163,90,.22);font-family:var(--serif);font-style:italic}
+.marcus-in{display:flex;gap:8px;padding:.8rem 1.1rem 1rem;border-top:1px solid rgba(201,163,90,.18)}
+.marcus-in input{
+  flex:1;background:rgba(239,231,214,.07);border:1px solid rgba(201,163,90,.3);border-radius:var(--r);
+  color:var(--stone);font-family:var(--serif);font-size:1rem;padding:.55rem .8rem;outline:none;
+}
+.marcus-in input:focus{border-color:var(--gold)}
+.marcus-in input::placeholder{color:rgba(239,231,214,.4);font-style:italic}
+.keyrow{display:flex;gap:8px;align-items:center;padding:.5rem 1.1rem;font-size:.78rem;color:rgba(239,231,214,.45)}
+.keyrow input{background:rgba(239,231,214,.06);border:1px solid rgba(201,163,90,.25);border-radius:var(--r);color:var(--stone);font-family:monospace;font-size:.75rem;padding:.3rem .5rem;flex:1;outline:none}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:.6rem 0 0}
+.chip{cursor:pointer;font-family:var(--serif);font-style:italic;font-size:.85rem;color:var(--gold);
+  border:1px solid rgba(154,110,47,.35);border-radius:20px;padding:.2rem .75rem;background:var(--panel);transition:.15s}
+.chip:hover{background:var(--gold);color:var(--stone)}
+
+/* footer */
+.foot{text-align:center;margin-top:3rem;padding:1.6rem 1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;font-family:var(--serif)}
+.foot .sig{font-family:var(--serifD);letter-spacing:.18em;color:var(--gold);font-size:.95rem}
+.foot .greek{font-style:italic;color:var(--teal);margin:.4rem 0}
+
+/* misc */
+.split{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:680px){.split.two{grid-template-columns:1fr 1fr;gap:1.4rem}}
+
+/* shrink header when scrolled (all sizes) */
+.site-header.shrunk .hdr-top{padding-top:.3rem;padding-bottom:.28rem}
+.site-header.shrunk .brand .nm{font-size:1.08rem}
+.site-header.shrunk .brand .tag{display:none}
+.site-header.shrunk .nav-bar button{padding-top:.25rem;padding-bottom:.35rem}
+
+/* mobile header shrink */
+@media(max-width:640px){
+  .hdr-top{padding:.4rem .8rem .35rem}
+  .brand{gap:.4rem}
+  .brand .col{font-size:1rem}
+  .brand .nm{font-size:1.05rem;letter-spacing:.1em}
+  .brand .tag{display:none}
+  .hdr-back{font-size:.66rem;padding:.18rem .3rem}
+  .nav-bar{gap:0;padding:0 .2rem .1rem}
+  .nav-bar button{font-size:.7rem;letter-spacing:.03em;padding:.3rem .42rem .42rem}
+  .nav-bar button .ico{margin-right:.18rem;font-size:.85em}
+}
+@media(max-width:380px){
+  .brand .nm{font-size:.95rem}
+  .nav-bar button{font-size:.64rem;padding:.28rem .34rem .4rem}
+  .nav-bar button .ico{display:none}
+}
+.kv{font-size:.92rem;color:var(--ink2);margin:.15rem 0}
+.kv b{font-family:var(--serif);color:var(--gold);font-weight:600;font-style:italic}
+.scroll-x{overflow-x:auto}
+.disc{font-size:.78rem;color:var(--muted);font-style:italic;font-family:var(--serif);margin:.6rem 0}
+hr.orn{border:none;text-align:center;margin:1.8rem 0}
+hr.orn::before{content:"\269C";color:var(--gold);font-size:1.1rem;opacity:.6}
+.searchwrap{position:sticky;top:0;z-index:50;padding:.5rem 0}
+
+/* ====== BLOG ====== */
+.blog-list{display:grid;gap:14px;margin-top:1.2rem}
+.bcard{background:var(--panel);border:1px solid var(--panelEdge);border-radius:var(--rl);
+  padding:1.2rem 1.3rem;cursor:pointer;transition:.18s;box-shadow:0 2px 8px rgba(33,28,20,.04)}
+.bcard:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 6px 18px rgba(33,28,20,.08)}
+.bcard .bmeta{font-family:var(--serif);font-style:italic;font-size:.78rem;color:var(--gold);letter-spacing:.05em;text-transform:uppercase}
+.bcard .btt{font-family:var(--serifD);font-weight:600;font-size:1.5rem;color:var(--ink);line-height:1.12;margin:.25rem 0 .35rem}
+.bcard .bex{font-size:1rem;color:var(--ink2);line-height:1.6}
+.bcard .bmore{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:.92rem;margin-top:.6rem;display:inline-block}
+.bpost{max-width:720px;margin:0 auto;animation:fade .35s ease}
+.bpost .bback{font-family:var(--serif);font-style:italic;color:var(--gold);cursor:pointer;font-size:.95rem;border:none;background:none;-webkit-appearance:none;appearance:none;padding:0;margin-bottom:1.2rem}
+.bpost .bmeta{font-family:var(--serif);font-style:italic;font-size:.8rem;color:var(--gold);letter-spacing:.06em;text-transform:uppercase}
+.bpost h1{font-size:clamp(2rem,5.5vw,2.9rem);font-weight:700;color:var(--ink);line-height:1.1;margin:.4rem 0 .2rem}
+.bpost .blede{font-family:var(--serif);font-style:italic;font-size:1.2rem;color:var(--ink2);line-height:1.5;margin:.4rem 0 1.4rem;padding-bottom:1.1rem;border-bottom:1px solid var(--line)}
+.bpost p{font-size:1.08rem;line-height:1.85;margin:1rem 0;max-width:none}
+.bpost h3{font-family:var(--serifD);font-weight:600;font-size:1.45rem;color:var(--ink);margin:1.8rem 0 .3rem}
+.bpost .bq{font-family:var(--serif);font-style:italic;font-size:1.22rem;color:var(--ink);line-height:1.5;
+  border-left:3px solid var(--gold);padding:.3rem 0 .3rem 1.2rem;margin:1.4rem 0;background:linear-gradient(90deg,rgba(201,163,90,.08),transparent)}
+.bpost .bq cite{display:block;font-size:.85rem;color:var(--muted);font-style:normal;margin-top:.4rem}
+.bpost .bsig{margin-top:2.2rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family:var(--serifD);letter-spacing:.16em;color:var(--gold);font-size:.95rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="hdr-top">
+    <div class="brand">
+      <span class="col">&#127963;</span>
+      <span class="nm">AVIDAA&nbsp;<b>STOA</b></span>
+      <span class="tag">the painted porch</span>
+    </div>
+    <button class="hdr-back" onclick="window.history.length>1?window.history.back():location.href='https://avidaa1.github.io/hub/'">&larr; AVIDAA HUB</button>
+  </div>
+  <nav class="nav-bar" id="nav-bar"></nav>
+</header>
+
+<!-- ============ HOME ============ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="eyebrow">Philosophy as a way of life &middot; c. 300 BCE &mdash; today</div>
+    <h1>Stoicism</h1>
+    <div class="sub">From Zeno&rsquo;s painted porch in Athens to the age of algorithms &mdash; the art of living well by mastering the only thing that is truly ours: our own judgment.</div>
+    <div class="rule"></div>
+    <div class="greek">&zeta;&eta;&nu; &#8001;&mu;&omicron;&lambda;&omicron;&gamma;&omicron;&upsilon;&mu;&epsilon;&nu;&omega;&sigmaf; &tau;&#8135; &phi;&upsilon;&sigma;&epsilon;&iota; &mdash; &ldquo;to live in agreement with nature&rdquo;</div>
+  </div>
+  <div class="main" id="home-body"></div>
+</div>
+
+<!-- ============ THE PORCH (history) ============ -->
+<div class="page" id="page-porch"><div class="main" id="porch-body"></div></div>
+
+<!-- ============ THE STOICS (people) ============ -->
+<div class="page" id="page-stoics"><div class="main" id="stoics-body"></div></div>
+
+<!-- ============ DOCTRINES ============ -->
+<div class="page" id="page-doctrine"><div class="main" id="doctrine-body"></div></div>
+
+<!-- ============ QUOTES ============ -->
+<div class="page" id="page-quotes"><div class="main" id="quotes-body"></div></div>
+
+<!-- ============ PRACTICE ============ -->
+<div class="page" id="page-practice"><div class="main" id="practice-body"></div></div>
+
+<!-- ============ MODERN ============ -->
+<div class="page" id="page-modern"><div class="main" id="modern-body"></div></div>
+
+<!-- ============ AI AGE ============ -->
+<div class="page" id="page-aiage"><div class="main" id="aiage-body"></div></div>
+
+<!-- ============ BLOG ============ -->
+<div class="page" id="page-blog"><div class="main" id="blog-body"></div></div>
+
+<!-- ============ ADVISOR (MARCUS) ============ -->
+<div class="page" id="page-advisor"><div class="main" id="advisor-body"></div></div>
+
+<div class="foot">
+  <div class="sig">AVIDAA &middot; STOA</div>
+  <div class="greek">&tau;&#8048; &#7952;&phi;&#8002; &#7969;&mu;&#8150;&nu; &mdash; <span style="font-style:normal;color:var(--muted)">what is up to us</span></div>
+  <div>An archive built from primary texts and reputable scholarship. Quotes are cited to source and translator where known; common misattributions are flagged in <span style="color:var(--crimson)">crimson</span>.</div>
+  <div style="margin-top:.5rem;font-size:.75rem">Sources: Diogenes Laertius Bk VII &middot; Stanford &amp; Internet Encyclopedias of Philosophy &middot; primary works of Seneca, Epictetus (Arrian), Marcus Aurelius, Musonius Rufus, Hierocles.</div>
+</div>
+
+</div>
+<script>
+/* ====================== AVIDAA STOA ENGINE ====================== */
+"use strict";
+
+/* ---- NAV / ROUTER ---- */
+var NAV=[
+  {id:'home',     ic:'\u25C8', label:'Porch'},     /* home / overview */
+  {id:'porch',    ic:'\u{1F3DB}', label:'History'},
+  {id:'stoics',   ic:'\u270D', label:'The Stoics'},
+  {id:'doctrine', ic:'\u269C', label:'Doctrines'},
+  {id:'quotes',   ic:'\u201C', label:'Quotes'},
+  {id:'practice', ic:'\u25F4', label:'Practice'},
+  {id:'modern',   ic:'\u26ED', label:'Modern'},
+  {id:'aiage',    ic:'\u2728', label:'AI Age'},
+  {id:'blog',     ic:'\u{1F4D6}', label:'Blog'},
+  {id:'advisor',  ic:'\u{1F5FF}', label:'Advisor'}
+];
+function buildNav(){
+  var c=document.getElementById('nav-bar');var h='';
+  NAV.forEach(function(s){
+    h+='<button id="nb-'+s.id+'" onclick="go(\x27'+s.id+'\x27)"><i class="ico">'+s.ic+'</i>'+s.label+'</button>';
+  });
+  c.innerHTML=h;
+}
+function go(name){
+  var pages=document.querySelectorAll('.page');
+  for(var i=0;i<pages.length;i++)pages[i].classList.remove('active');
+  var p=document.getElementById('page-'+name);
+  if(p)p.classList.add('active');
+  var btns=document.querySelectorAll('.nav-bar button');
+  for(var j=0;j<btns.length;j++)btns[j].classList.remove('active');
+  var b=document.getElementById('nb-'+name);
+  if(b)b.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(name==='advisor')setTimeout(function(){var inp=document.getElementById('marcus-input');if(inp)inp.focus();},200);
+}
+window.go=go;
+
+/* ---- CARD TOGGLE ---- */
+function tog(el){ el.classList.toggle('open'); }
+window.tog=tog;
+
+/* ---- HELPERS ---- */
+function card(em,tt,sub,bd){
+  return '<div class="card" onclick="tog(this)"><div class="card-hd">'+
+    '<div class="card-em">'+em+'</div><div><div class="card-tt">'+tt+'</div>'+
+    (sub?'<div class="card-sub">'+sub+'</div>':'')+'</div>'+
+    '<div class="card-arrow">\u25B6</div></div>'+
+    '<div class="card-bd" onclick="event.stopPropagation()">'+bd+'</div></div>';
+}
+function quote(text,who,src,flag){
+  return '<div class="q'+(flag?' flag':'')+'"><div class="mark">\u201C</div>'+
+    '<blockquote>'+text+'</blockquote>'+
+    '<div class="cite"><b>'+who+'</b>'+(src?' &mdash; '+src:'')+'</div></div>';
+}
+function secHd(t,n){return '<div class="sec-hd">'+t+(n?'<span class="n">'+n+'</span>':'')+'</div>';}
+
+/* ====================== HOME ====================== */
+document.getElementById('home-body').innerHTML=
+  '<p class="lead">Stoicism is a Greco-Roman philosophy founded by <b>Zeno of Citium</b> around 300&nbsp;BCE at the <span class="it">Stoa Poikile</span> &mdash; the &ldquo;Painted Porch&rdquo; of the Athenian agora, from which the school takes its name. It holds that <strong>virtue is the only true good</strong>, that we should concern ourselves only with what is <span class="gk">eph\u2019 h&#275;min</span> (up to us), and that a good life means living in agreement with nature and reason.</p>'+
+  '<p>Though the founders survive only in fragments, the philosophy lives on through three Romans &mdash; the statesman <b>Seneca</b>, the freed slave <b>Epictetus</b>, and the emperor <b>Marcus Aurelius</b>. Their practical wisdom became the ancestor of modern Cognitive Behavioral Therapy and fuels a 21st-century revival now being tested against social media, information overload, and artificial intelligence itself.</p>'+
+  '<div class="grid g4" style="margin-top:1.4rem">'+
+    tileSm('\u{1F3DB}','c.300 BCE','Founded by Zeno at the Stoa Poikile, Athens')+
+    tileSm('\u{1F4DC}','3 parts','Physics &middot; Logic &middot; Ethics, as one living whole')+
+    tileSm('\u2696','4 virtues','Wisdom &middot; Courage &middot; Justice &middot; Temperance')+
+    tileSm('\u269C','1 aim','<span class="it">Eudaimonia</span> &mdash; flourishing through virtue')+
+  '</div>'+
+  secHd('Where to begin','enter the porch')+
+  '<div class="grid g2">'+
+    navTile('porch','\u{1F3DB}','The History','From Zeno&rsquo;s shipwreck to the fall of Rome &mdash; the Old, Middle and Late Stoa across five centuries.')+
+    navTile('stoics','\u270D','The Stoics','Zeno, Cleanthes, Chrysippus, Seneca, Musonius, Epictetus, Marcus &mdash; lives, works and signature teachings.')+
+    navTile('doctrine','\u269C','The Doctrines','The dichotomy of control, the four virtues, the three disciplines, fate, the sage, indifferents and more.')+
+    navTile('quotes','\u201C','The Quotes','A sourced bank of the great lines &mdash; with translator noted and famous misattributions flagged.')+
+    navTile('practice','\u25F4','The Practice','Morning and evening reflection, negative visualization, the view from above, <span class="it">memento mori</span> &mdash; with an interactive Daily Stoic.')+
+    navTile('modern','\u26ED','The Revival','Stoicism, CBT and Frankl; Hadot, Holiday, Pigliucci, Irvine, Robertson; the military, sport and the critiques.')+
+    navTile('aiage','\u2728','The AI Age','Stoic tools for the attention economy &mdash; and the open question of whether a machine can be Stoic.')+
+    navTile('blog','\u{1F4D6}','The Blog','Essays on why this still matters &mdash; how an ancient discipline keeps you from losing yourself in a fragmenting age.')+
+    navTile('advisor','\u{1F5FF}','The Advisor','Consult <b>MARCUS</b> &mdash; a Stoic counsel powered by the texts in this archive.')+
+  '</div>'+
+  '<hr class="orn">'+
+  '<p class="disc">A note on fidelity: no complete work survives from Zeno, Cleanthes or Chrysippus &mdash; their words reach us second-hand, chiefly through Diogenes Laertius (Book&nbsp;VII), Cicero, Stobaeus and Plutarch, and are labelled as reported. The most-circulated Marcus Aurelius lines come from Gregory Hays&rsquo; deliberately modern translation. This archive notes the translator where it matters and marks popular misquotations in crimson.</p>';
+
+function tileSm(em,big,dd){return '<div class="tile gold"><div class="em">'+em+'</div><div class="tt">'+big+'</div><div class="dd">'+dd+'</div></div>';}
+function navTile(id,em,tt,dd){return '<div class="tile" style="cursor:pointer" onclick="go(\x27'+id+'\x27)"><div class="em">'+em+'</div><div class="tt">'+tt+'</div><div class="dd">'+dd+'</div></div>';}
+
+/* ====================== HISTORY / PORCH ====================== */
+document.getElementById('porch-body').innerHTML=
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Five centuries</div><h1 style="font-size:clamp(2rem,6vw,3rem)">The Painted Porch</h1><div class="sub">How a shipwrecked merchant&rsquo;s loss became a philosophy that outlived the empire that adopted it.</div></div>'+
+  '<p class="lead">Around 300&nbsp;BCE, Zeno of Citium &mdash; a Phoenician-Greek trader who had lost everything in a shipwreck near Athens &mdash; began teaching beneath the <span class="it">Stoa Poikile</span>, a public colonnade hung with battle murals. His followers were first called &ldquo;Zenonians,&rdquo; but soon took their name from the porch itself: the <strong>Stoics</strong>. He is said to have remarked that he made a prosperous voyage when he suffered shipwreck.</p>'+
+  secHd('The arc','timeline')+
+  '<div class="tl">'+
+    tl('c. 334\u2013262 BCE','Zeno of Citium','Shipwrecked near Athens, he reads of Socrates in a bookshop and studies under the Cynic Crates, the Megarians and the Academy. Founds the school c. 300 BCE; defines the goal as &ldquo;living in agreement with nature.&rdquo; Honoured by Athens with a golden crown and public tomb.')+
+    tl('c. 330\u2013230 BCE','Cleanthes of Assos','A former water-carrier and boxer, the second head of the school. His <span class="it">Hymn to Zeus</span> &mdash; the only substantial early-Stoic text to survive intact &mdash; hails Zeus as the rational law (<span class="gk">logos</span>) steering all things.')+
+    tl('c. 279\u2013206 BCE','Chrysippus of Soli','The &ldquo;second founder&rdquo;: &ldquo;If there had been no Chrysippus, there would have been no Stoa.&rdquo; A former runner who wrote 700+ works, built an original propositional logic, and defended a compatibilist theory of fate. Said to have died laughing at a donkey eating figs.')+
+    tl('c. 185\u2013110 BCE','Panaetius of Rhodes','The Middle Stoa. Last undisputed head of the Athenian school; softens the harsher early doctrines, joins the Roman circle of Scipio, and shapes Cicero&rsquo;s <span class="it">On Duties</span>.')+
+    tl('c. 135\u201351 BCE','Posidonius of Apamea','Polymath of Rhodes who weds Stoicism to science and Platonism, and teaches Cicero. After Sulla&rsquo;s sack of Athens (88\u201386 BCE), the Athenian Stoa dissolves and the school&rsquo;s centre moves to Rome.')+
+    tlc('95\u201346 BCE','Cato the Younger','Makes Stoic integrity a Roman ideal. After the Republican defeat at Thapsus he takes his own life at Utica rather than accept Caesar&rsquo;s pardon &mdash; reading Plato&rsquo;s <span class="it">Phaedo</span> twice. Lucan: &ldquo;the conquered cause pleased Cato.&rdquo;')+
+    tl('c. 4 BCE\u201365 CE','Seneca','The Roman Stoa in full. Statesman, dramatist and tutor to Nero; author of the <span class="it">Moral Letters</span>. Ordered by Nero to die, he opens his veins with Stoic composure.')+
+    tl('c. 30\u2013100 CE','Musonius Rufus','&ldquo;The Roman Socrates,&rdquo; teacher of Epictetus, exiled to the barren isle of Gyaros. Argues &mdash; radically &mdash; that women should study philosophy.')+
+    tl('c. 55\u2013135 CE','Epictetus','Born a slave, freed after Nero&rsquo;s death, expelled from Rome by Domitian, he founds a school at Nicopolis. Writes nothing; his pupil Arrian records the <span class="it">Discourses</span> and the <span class="it">Enchiridion</span>.')+
+    tl('121\u2013180 CE','Marcus Aurelius','Emperor and last great ancient Stoic. Writes the <span class="it">Meditations</span> to himself on campaign &mdash; private exercises never meant for publication.')+
+    tlc('380\u2013529 CE','Eclipse','As Christianity becomes the state religion, the pagan schools fade. Justinian&rsquo;s decree of 529 CE closing the Athenian school is the symbolic end of ancient philosophy &mdash; though the Stoic school had been defunct for centuries.')+
+    tl('1584 CE','Neostoicism','Justus Lipsius&rsquo; <span class="it">De Constantia</span> revives Stoic ethics for a Christian Europe, influencing Descartes, Spinoza, Kant and Adam Smith.')+
+    tl('1955\u2013today','The Modern Revival','Albert Ellis and Aaron Beck root cognitive therapy in Epictetus. Pierre Hadot recovers Stoicism as &ldquo;spiritual exercise.&rdquo; A popular revival follows &mdash; Stoic Week, Stoicon, and millions of new readers.')+
+  '</div>'+
+  '<div class="note">The line of transmission is fragile: Stoicism survived through Seneca&rsquo;s letters, a set of forged Seneca&ndash;St. Paul letters that lent him Christian respectability, medieval anthologies (<span class="it">florilegia</span>), and the lucky survival of Diogenes Laertius and the single manuscript tradition behind the <span class="it">Meditations</span>, first clearly attested only in the 10th century.</div>';
+
+function tl(yr,tt,dd){return '<div class="tl-item"><div class="tl-yr">'+yr+'</div><div class="tl-tt">'+tt+'</div><div class="tl-dd">'+dd+'</div></div>';}
+function tlc(yr,tt,dd){return '<div class="tl-item crim"><div class="tl-yr">'+yr+'</div><div class="tl-tt">'+tt+'</div><div class="tl-dd">'+dd+'</div></div>';}
+
+/* ====================== THE STOICS ====================== */
+document.getElementById('stoics-body').innerHTML=
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Lives &amp; works</div><h1 style="font-size:clamp(2rem,6vw,3rem)">The Stoics</h1><div class="sub">A merchant, a water-carrier, a runner, a statesman, a knight, a slave and an emperor.</div></div>'+
+  secHd('The Roman Stoa','the four whose words survive')+
+  card('\u{1F451}','Marcus Aurelius','121\u2013180 CE &middot; Emperor &middot; <i>Meditations</i>',
+    '<p>Roman emperor (r. 161\u2013180) and the last great ancient Stoic. The <span class="it">Meditations</span> &mdash; Greek <span class="gk">Ta eis heauton</span>, &ldquo;Things to Himself&rdquo; &mdash; is a private journal of Stoic exercises written largely on campaign during the Marcomannic Wars, never intended for publication.</p>'+
+    '<h4>The twelve books</h4><p>Book&nbsp;1 is a chain of gratitude (&ldquo;Debts and Lessons&rdquo;) to family, teachers and the gods; Books&nbsp;2\u201312 are philosophical reminders in no thematic order. Book&nbsp;1 records that he learned of Epictetus when his teacher Junius Rusticus lent him his own copy (1.7).</p>'+
+    '<h4>Recurring themes</h4><ul><li>Impermanence and the nearness of death</li><li>The dichotomy of acceptance and control</li><li>Virtue as the only good; fame and anger as futile</li><li>The unity of humankind under one <span class="gk">logos</span></li></ul>'+
+    quote('Waste no more time arguing what a good man should be. Be one.','Marcus Aurelius','Meditations 10.16')+
+    quote('The impediment to action advances action. What stands in the way becomes the way.','Marcus Aurelius','Meditations 5.20 (tr. Hays)'))+
+  card('\u26D3','Epictetus','c.55\u2013135 CE &middot; Freed slave &middot; <i>Discourses, Enchiridion</i>',
+    '<p>Born a slave in Hierapolis, Phrygia, owned by Epaphroditus (a secretary of Nero) and, by tradition, lamed by his master. Freed after Nero&rsquo;s death, he taught in Rome until Domitian expelled the philosophers (c. 93 CE), then founded a school at <strong>Nicopolis</strong> in Greece.</p>'+
+    '<p>He wrote nothing. His student <strong>Arrian</strong> recorded the <span class="it">Discourses</span> (four of eight books survive) and distilled them into the 53-chapter <span class="it">Enchiridion</span> (&ldquo;Handbook&rdquo;).</p>'+
+    '<h4>Central teaching</h4><p>The <strong>dichotomy of control</strong> (Enchiridion 1) and the <strong>three disciplines</strong> &mdash; desire, action and assent. He shaped Marcus directly and, through the Handbook, modern psychotherapy.</p>'+
+    quote('Men are disturbed not by things, but by the views which they take of them.','Epictetus','Enchiridion 5 &mdash; the seed-text of CBT')+
+    quote('It is not he who reviles you or strikes you who insults you, but it is your opinion about these things as being insulting.','Epictetus','Enchiridion 20'))+
+  card('\u{1F58B}','Seneca','c.4 BCE\u201365 CE &middot; Statesman &middot; <i>Letters to Lucilius</i>',
+    '<p>Lucius Annaeus Seneca, born in Corduba (C&oacute;rdoba), Spain. Statesman, dramatist and Stoic. Exiled to Corsica by Claudius (41\u201349 CE), recalled to tutor the young Nero, and effectively co-governing Rome with Burrus in Nero&rsquo;s early reign.</p>'+
+    '<h4>Major works</h4><ul><li>124 <span class="it">Moral Letters to Lucilius</span> (<span class="gk">Epistulae Morales</span>)</li><li><span class="it">On the Shortness of Life</span> (<span class="gk">De Brevitate Vitae</span>)</li><li><span class="it">On Anger</span>, <span class="it">On the Happy Life</span>, <span class="it">On Mercy</span>, <span class="it">On Providence</span>, <span class="it">Natural Questions</span>, and ten tragedies</li></ul>'+
+    '<p>Accused of complicity in the Pisonian conspiracy (65 CE), he was ordered by Nero to take his own life; he opened his veins and died slowly, as Tacitus records. He never claimed to be a sage &mdash; only a patient making slow progress.</p>'+
+    quote('We suffer more often in imagination than in reality.','Seneca','Letters 13.4 &mdash; <span class="gk">saepius opinione quam re laboramus</span>')+
+    quote('It is not that we have a short time to live, but that we waste much of it.','Seneca','On the Shortness of Life 1'))+
+  card('\u{1F3DB}','Musonius Rufus','c.30\u2013100 CE &middot; "The Roman Socrates"',
+    '<p>Teacher of Epictetus; a Roman knight (<span class="gk">eques</span>) twice exiled, once to the barren island of Gyaros. Like Socrates he wrote nothing &mdash; 21 lectures survive through his students Lucius and Pollio.</p>'+
+    '<p>Radically for his era, he argued that <strong>women should study philosophy</strong> and that daughters should receive the same education as sons. He championed austere living, simplicity, vegetarianism and, above all, rigorous <strong>practice</strong> over theory.</p>'+
+    quote('Women have received from the gods the same ability to reason that men have.','Musonius Rufus','Lecture III &mdash; That Women Too Should Study Philosophy')+
+    quote('To relax the mind is to lose it.','Musonius Rufus','Fragments'))+
+  secHd('The founders','known only through fragments')+
+  card('\u2693','Zeno of Citium','c.334\u2013262 BCE &middot; Founder',
+    '<p>A Phoenician-Greek merchant from Cyprus, shipwrecked near Athens. Reading of Socrates in a bookshop, he asked where such men might be found and was sent to the Cynic Crates. He also studied with the Megarian logicians and at Plato&rsquo;s Academy, then began teaching at the Stoa Poikile c. 300 BCE.</p>'+
+    '<p>He was the first to set the goal of life as <strong>living in agreement with nature</strong>, and divided philosophy into physics, logic and ethics. Athens honoured him with a golden crown and a public tomb.</p>'+
+    quote('We have two ears and one mouth, so we should listen more than we say.','Zeno','as reported by Diogenes Laertius 7.23'))+
+  card('\u2600','Cleanthes of Assos','c.330\u2013230 BCE &middot; 2nd head &middot; <i>Hymn to Zeus</i>',
+    '<p>A former water-carrier and boxer of legendary austerity and piety, the second head of the school. His <span class="it">Hymn to Zeus</span>, preserved nearly whole by Stobaeus, is the only substantial early-Stoic text to survive intact &mdash; addressing Zeus as the rational law governing all things.</p>'+
+    quote('Lead me, O Zeus, and thou O Destiny, the way that I am bid by you to go.','Cleanthes','quoted by Epictetus, Enchiridion 53')+
+    '<p class="disc">Seneca rendered the appended sentiment in Latin: <span class="gk">ducunt volentem fata, nolentem trahunt</span> &mdash; &ldquo;Fate guides the willing, but drags the unwilling&rdquo; (Letter 107.11).</p>')+
+  card('\u{1F3C3}','Chrysippus of Soli','c.279\u2013206 BCE &middot; "Second founder"',
+    '<p>The third head and great systematizer: &ldquo;If there had been no Chrysippus, there would have been no Stoa&rdquo; (Diogenes Laertius 7.183). A former long-distance runner credited with 700+ works, of which only fragments survive.</p>'+
+    '<h4>His achievements</h4><ul><li>An original <strong>propositional logic</strong> built on whole propositions and connectives (if/then, and, or, not) &mdash; distinct from Aristotle&rsquo;s term logic &mdash; with five &ldquo;indemonstrable&rdquo; argument forms</li><li>A compatibilist defense of <strong>fate and free agency</strong> (the cylinder analogy)</li><li>The Stoic theory of impressions (<span class="gk">phantasiai</span>)</li></ul>'+
+    '<p class="disc">Tradition says he died of a laughing fit after watching a donkey eat figs.</p>'+
+    quote('The universe itself is god and the universal outpouring of its soul.','Chrysippus','as reported by Diogenes Laertius 7.148'))+
+  card('\u25EF','Hierocles','2nd c. CE &middot; <i>Elements of Ethics</i>',
+    '<p>A Stoic of the Hadrianic era (not the later Neoplatonist) whose <span class="it">Elements of Ethics</span> survives as a papyrus found at Hermopolis in 1901. He grounded ethics in self-perception and <span class="gk">oikei&#333;sis</span>, and gave us the famous image of the <strong>concentric circles of concern</strong> &mdash; self, family, community, humanity &mdash; which the Stoic draws inward.</p>');
+
+/* ====================== DOCTRINES ====================== */
+document.getElementById('doctrine-body').innerHTML=
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">The system</div><h1 style="font-size:clamp(2rem,6vw,3rem)">The Doctrines</h1><div class="sub">Physics, logic and ethics &mdash; conceived as one living whole.</div></div>'+
+  '<div class="note">The Stoics compared their philosophy to an animal &mdash; logic the bones and sinews, ethics the flesh, physics the soul; or to a garden &mdash; logic the wall, physics the orchard, ethics the fruit. The three are inseparable.</div>'+
+  secHd('The four cardinal virtues','the only good')+
+  '<p>For the Stoics every virtue is a form of <strong>knowledge</strong> (<span class="gk">epist&#275;m&#275;</span>), so every moral failure is at root a cognitive error. The four are unified: to possess one fully is to possess all.</p>'+
+  '<div class="grid g4">'+
+    vtile('\u{1F989}','Wisdom','sophia / phron&#275;sis','Knowledge of what is good, what is bad, and what is neither. The master virtue.')+
+    vtile('\u{1F981}','Courage','andreia','Knowledge of what is and is not to be feared &mdash; and what is neither.')+
+    vtile('\u2696','Justice','dikaiosyn&#275;','Knowledge of giving each what is due; the social virtue.')+
+    vtile('\u{1F3FA}','Temperance','s&#333;phrosyn&#275;','Knowledge of what to choose and what to avoid; self-command.')+
+  '</div>'+
+  secHd('The core teachings','doctrine by doctrine')+
+  card('\u270B','The Dichotomy of Control','ta eph\u2019 h&#275;min',
+    '<p>The hinge of all Stoic practice. Epictetus opens the Handbook: some things are up to us &mdash; our opinions, desires, aversions, in a word our own actions &mdash; and some are not: our body, property, reputation, office.</p>'+
+    '<p>Greek: <span class="gk">ta eph\u2019 h&#275;min</span> (what is up to us) versus <span class="gk">ta ouk eph\u2019 h&#275;min</span> (what is not). Tranquility comes from desiring only what is genuinely ours: our own judgment.</p>'+
+    quote('Some things are in our control and others not.','Epictetus','Enchiridion 1'))+
+  card('\u{1F33F}','Living in Agreement with Nature','homologoumen&#333;s t&#275; physei z&#275;n',
+    '<p>The goal of life (<span class="gk">telos</span>) is <span class="gk">eudaimonia</span> &mdash; flourishing &mdash; achieved by living in agreement with nature: both the rational, providential order of the cosmos and our own nature as rational, social animals. Zeno was the first to name the end this way (Diogenes Laertius 7.87).</p>')+
+  card('\u{1F525}','Logos &amp; the Divine Fire','universal reason',
+    '<p>The universe is a single rational, living, providential whole governed by <span class="gk">logos</span> &mdash; universal reason &mdash; identified with Zeus, Nature and Fate, and conceived as a creative fire or <span class="gk">pneuma</span> pervading all things. Human reason is a fragment of this divine logos. Stoic ontology is thoroughly material: only bodies exist.</p>')+
+  card('\u269C','The Three Disciplines','desire, action, assent',
+    '<p>Epictetus&rsquo; practical curriculum, systematized by Pierre Hadot, maps onto the three parts of philosophy:</p>'+
+    '<ul><li><strong>Desire</strong> (<span class="gk">orexis</span>) &mdash; desire only the good, accept fate. Corresponds to <em>physics</em>; its fruit is <span class="gk">amor fati</span>.</li>'+
+    '<li><strong>Action</strong> (<span class="gk">horm&#275;</span>) &mdash; act rightly and justly toward others. Corresponds to <em>ethics</em>; linked to justice.</li>'+
+    '<li><strong>Assent</strong> (<span class="gk">sunkatathesis</span>) &mdash; judge impressions correctly; withhold agreement from false ones. Corresponds to <em>logic</em>; linked to wisdom and the practice of attention, <span class="gk">prosoch&#275;</span>.</li></ul>')+
+  card('\u{1F30A}','The Theory of Emotions','apatheia &amp; the eupatheiai',
+    '<p>The destructive passions (<span class="gk">path&#275;</span>) &mdash; distress, fear, appetite, and overweening pleasure &mdash; arise from false judgments about externals. The sage attains <span class="gk">apatheia</span>: freedom from these <em>irrational</em> passions &mdash; <strong>not</strong> emotional numbness.</p>'+
+    '<p>The sage still feels the rational good-emotions, the <span class="gk">eupatheiai</span>: joy (<span class="gk">chara</span>), caution (<span class="gk">eulabeia</span>), and rational wishing (<span class="gk">boul&#275;sis</span>). Involuntary first reactions &mdash; the <span class="gk">propatheiai</span> &mdash; are not passions until we assent to them.</p>')+
+  card('\u2696','Preferred &amp; Dispreferred Indifferents','adiaphora',
+    '<p>Everything besides virtue and vice is morally <span class="gk">adiaphora</span> &mdash; indifferent &mdash; but indifferents are ranked. <strong>Preferred</strong> (<span class="gk">pro&#275;gmena</span>): health, wealth, reputation &mdash; naturally to be selected. <strong>Dispreferred</strong> (<span class="gk">apopro&#275;gmena</span>): illness, poverty &mdash; naturally avoided. They carry &ldquo;selective value&rdquo; (<span class="gk">axia</span>) but do not touch <span class="gk">eudaimonia</span>.</p>')+
+  card('\u25EF','Oikei&#333;sis &amp; Cosmopolitanism','the circles of concern',
+    '<p><span class="gk">Oikei&#333;sis</span> &mdash; &ldquo;appropriation&rdquo; &mdash; is the natural process by which a being cares first for itself, then extends concern outward. Hierocles pictured concentric circles: self, immediate family, extended family, community, fellow citizens, all humanity.</p>'+
+    '<p>The Stoic exercise is to <strong>draw the outer circles inward</strong> &mdash; to treat strangers more like kin. From this comes Stoic <strong>cosmopolitanism</strong>: all rational beings are citizens of one world-community. (The aim is to raise concern for the distant, not to treat everyone identically.)</p>')+
+  card('\u{1F9ED}','Fate, Determinism &amp; the Dog','heimarmen&#275;',
+    '<p>The Stoics held a causal determinism: every event follows from prior causes within a providential order (<span class="gk">heimarmen&#275;</span>). Chrysippus saved human responsibility with the <strong>cylinder analogy</strong>: an external push starts the roll, but the cylinder&rsquo;s own shape determines <em>that</em> it rolls &mdash; so character, not fate, is the principal cause of our acts.</p>'+
+    quote('When a dog is tied to a cart, if it wants to follow it is pulled and follows, making its own act coincide with necessity. But if it does not want to follow, it will be compelled anyway.','attributed to Zeno &amp; Chrysippus','via Hippolytus')+
+    '<p>We cannot change fate &mdash; only whether we follow it willingly.</p>')+
+  card('\u{1F31F}','The Sage','sophos &mdash; the ideal',
+    '<p>The <span class="gk">sophos</span> is the figure of moral perfection: completely wise, virtuous, free and happy, who never assents to a false impression and holds all virtues at once. The Stoics admitted no middle ground &mdash; one cubit underwater drowns as surely as a hundred fathoms down.</p>'+
+    '<p>The sage is exceedingly rare. Seneca said the good man is born &ldquo;about as rarely as the phoenix &mdash; once every five hundred years&rdquo; (Letter 42.1). The early Stoics debated whether any had truly existed; the usual candidates were Socrates, Diogenes and Cato.</p>');
+
+function vtile(em,tt,gk,dd){return '<div class="tile gold"><div class="em">'+em+'</div><div class="tt">'+tt+'</div><span class="gk">'+gk+'</span><div class="dd">'+dd+'</div></div>';}
+
+/* ====================== QUOTES ====================== */
+var QUOTES=[
+  {t:'You have power over your mind &mdash; not outside events. Realize this, and you will find strength.',w:'\u26A0 Misattributed to Marcus Aurelius',s:'A loose paraphrase, not a verbatim passage. Closest genuine source: Meditations 4.3.',f:1},
+  {t:'The happiness of your life depends upon the quality of your thoughts.',w:'\u26A0 Misattributed to Marcus Aurelius',s:'Non-literal rendering. Closest genuine source: Meditations 5.16.',f:1},
+  {t:'Luck is what happens when preparation meets opportunity.',w:'\u26A0 Not Seneca',s:'A 20th-century saying with no basis in Seneca&rsquo;s works.',f:1},
+  {t:'Every new beginning comes from some other beginning&rsquo;s end.',w:'\u26A0 Not Seneca',s:'Actually a lyric from Semisonic&rsquo;s &ldquo;Closing Time&rdquo; (1998).',f:1},
+  {t:'Waste no more time arguing what a good man should be. Be one.',w:'Marcus Aurelius',s:'Meditations 10.16'},
+  {t:'The impediment to action advances action. What stands in the way becomes the way.',w:'Marcus Aurelius',s:'Meditations 5.20 (tr. Hays)'},
+  {t:'The best revenge is to be unlike him who performed the injury.',w:'Marcus Aurelius',s:'Meditations 6.6'},
+  {t:'If you are distressed by anything external, the pain is not due to the thing itself, but to your estimate of it; and this you have the power to revoke at any moment.',w:'Marcus Aurelius',s:'Meditations 8.47'},
+  {t:'It never ceases to amaze me: we all love ourselves more than other people, but care more about their opinion than our own.',w:'Marcus Aurelius',s:'Meditations 12.4'},
+  {t:'When you arise in the morning, think of what a precious privilege it is to be alive &mdash; to breathe, to think, to enjoy, to love.',w:'Marcus Aurelius',s:'Meditations 2.1 (paraphrase tradition)'},
+  {t:'Men are disturbed not by things, but by the views which they take of them.',w:'Epictetus',s:'Enchiridion 5'},
+  {t:'Some things are in our control and others not.',w:'Epictetus',s:'Enchiridion 1'},
+  {t:'It is not he who reviles you or strikes you who insults you, but it is your opinion about these things as being insulting.',w:'Epictetus',s:'Enchiridion 20'},
+  {t:'No man is free who is not master of himself.',w:'Epictetus',s:'attributed, Discourses tradition'},
+  {t:'We suffer more often in imagination than in reality.',w:'Seneca',s:'Letters to Lucilius 13.4'},
+  {t:'It is not that we have a short time to live, but that we waste much of it.',w:'Seneca',s:'On the Shortness of Life 1'},
+  {t:'The wise man will live as long as he ought, not as long as he can.',w:'Seneca',s:'Letters 70'},
+  {t:'Fate guides the willing, but drags the unwilling.',w:'Seneca',s:'Letters 107.11 &mdash; <span class="gk">ducunt volentem fata, nolentem trahunt</span>'},
+  {t:'Lead me, O Zeus, and thou O Destiny, the way that I am bid by you to go.',w:'Cleanthes',s:'quoted by Epictetus, Enchiridion 53'},
+  {t:'We have two ears and one mouth, so we should listen more than we say.',w:'Zeno',s:'as reported by Diogenes Laertius 7.23'},
+  {t:'To relax the mind is to lose it.',w:'Musonius Rufus',s:'Fragments'},
+  {t:'Women have received from the gods the same ability to reason that men have.',w:'Musonius Rufus',s:'Lecture III'}
+];
+function renderQuotes(filter){
+  var html='';
+  QUOTES.forEach(function(q){
+    if(filter==='flag'&&!q.f)return;
+    if(filter==='real'&&q.f)return;
+    html+=quote(q.t,q.w,q.s,q.f);
+  });
+  document.getElementById('quotes-list').innerHTML=html;
+}
+function qfilter(f,btn){
+  var bs=document.querySelectorAll('#quote-filters .chip');
+  for(var i=0;i<bs.length;i++)bs[i].style.background='var(--panel)',bs[i].style.color='var(--gold)';
+  btn.style.background='var(--gold)';btn.style.color='var(--stone)';
+  renderQuotes(f);
+}
+window.qfilter=qfilter;
+document.getElementById('quotes-body').innerHTML=
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Sourced</div><h1 style="font-size:clamp(2rem,6vw,3rem)">The Quotes</h1><div class="sub">The great lines &mdash; cited to source and translator. The four most-shared misquotations are flagged in crimson.</div></div>'+
+  '<div class="chips" id="quote-filters">'+
+    '<span class="chip" style="background:var(--gold);color:var(--stone)" onclick="qfilter(\x27all\x27,this)">All</span>'+
+    '<span class="chip" onclick="qfilter(\x27real\x27,this)">Verified only</span>'+
+    '<span class="chip" onclick="qfilter(\x27flag\x27,this)">\u26A0 Misattributed</span>'+
+  '</div>'+
+  '<div id="quotes-list" style="margin-top:1rem"></div>';
+renderQuotes('all');
+
+/* ====================== PRACTICE ====================== */
+document.getElementById('practice-body').innerHTML=
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Spiritual exercises</div><h1 style="font-size:clamp(2rem,6vw,3rem)">The Practice</h1><div class="sub">Stoicism was never only a theory. It was a daily training of attention, desire and judgment.</div></div>'+
+  secHd('Draw a stone','the daily stoic')+
+  '<p>Draw a reflection at random &mdash; a sourced line paired with a question to sit with.</p>'+
+  '<div style="margin:.6rem 0"><button class="pbtn" onclick="drawStoic()">\u25F4 Draw a reflection</button></div>'+
+  '<div class="dsbox" id="ds-box"><div class="mk">\u201C</div><blockquote id="ds-q">Press &ldquo;Draw a reflection&rdquo; to begin.</blockquote><div class="cite" id="ds-c"></div><div class="reflect" id="ds-r" style="display:none"></div></div>'+
+  secHd('The exercises','how the Stoics trained')+
+  card('\u{1F305}','Morning Preparation','praemeditatio',
+    '<p>Rehearse the day before it begins. Marcus opens each day by reminding himself he will meet the meddling, the ungrateful and the arrogant &mdash; and that they too share in reason (Meditations 2.1). Prepare the mind, and no obstacle arrives as a surprise.</p>')+
+  card('\u{1F319}','Evening Review','the Stoic journal',
+    '<p>At day&rsquo;s end, examine your conduct: what did I do well? badly? leave undone? Seneca attributes the practice to his teacher Sextius (On Anger 3.36); Marcus&rsquo; whole <span class="it">Meditations</span> is its record. Write to internalize, not to perform.</p>')+
+  card('\u{1F4A7}','Negative Visualization','premeditatio malorum',
+    '<p>Deliberately imagine setback, loss, even death &mdash; to soften fear and deepen gratitude for what is still here. It is <strong>not</strong> anxious catastrophizing: it is deliberate, time-bounded, ends in acceptance (&ldquo;and I would still be all right&rdquo;), and is always paired with gratitude.</p>')+
+  card('\u{1F91D}','The Reserve Clause','hupexhairesis',
+    '<p>Act fully toward your goal, but add the silent qualification &mdash; &ldquo;fate permitting.&rdquo; You commit to the effort, which is yours, while holding the outcome lightly, since it is not. So you act wholeheartedly yet remain undisturbed if it fails.</p>')+
+  card('\u{1F9CA}','Voluntary Discomfort','askesis',
+    '<p>Periodically practice poverty, cold, plain food or fasting &mdash; not as punishment but as training. Seneca and Musonius held that tasting hardship by choice dissolves the fear of suffering it by force, and sharpens gratitude for ordinary comfort.</p>')+
+  card('\u{1F480}','Contemplation of Death','memento mori',
+    '<p>Keep mortality in view to live well now. &ldquo;You could leave life right now,&rdquo; Marcus writes; &ldquo;let that determine what you do and say and think.&rdquo; Death is not the enemy of a good life but its measure.</p>')+
+  card('\u{1F30C}','The View from Above','the cosmic perspective',
+    '<p>Picture yourself and your troubles from far above &mdash; the city, the continent, the turning Earth, the immensity of time. Seen from there, most of what agitates us shrinks to its true size. A practice Marcus returns to again and again.</p>')+
+  card('\u2764','Amor Fati','love of fate',
+    '<p>Not mere resignation but active embrace: to will that things be exactly as they are, treating whatever happens as part of nature&rsquo;s order. &ldquo;Do not seek for things to happen as you wish, but wish for them to happen as they do&rdquo; (Epictetus, Enchiridion 8).</p>');
+
+/* daily stoic data */
+var DS=[
+  {q:'Some things are in our control and others not.',c:'Epictetus &mdash; Enchiridion 1',r:'Today, name one thing troubling you. Which part is genuinely up to you, and which is not? Spend your energy only on the first.'},
+  {q:'We suffer more often in imagination than in reality.',c:'Seneca &mdash; Letters 13.4',r:'What future harm are you rehearsing? Ask whether it has happened &mdash; or whether you are paying interest on a debt that may never come due.'},
+  {q:'Waste no more time arguing what a good man should be. Be one.',c:'Marcus Aurelius &mdash; Meditations 10.16',r:'Where today are you theorizing about virtue instead of practicing it? Choose one small right action and simply do it.'},
+  {q:'The impediment to action advances action. What stands in the way becomes the way.',c:'Marcus Aurelius &mdash; Meditations 5.20 (Hays)',r:'What obstacle are you cursing? How might it be the exact training your character needs right now?'},
+  {q:'It is not that we have a short time to live, but that we waste much of it.',c:'Seneca &mdash; On the Shortness of Life 1',r:'How much of today will you actually live, and how much merely spend? Reclaim one hour for what matters.'},
+  {q:'Men are disturbed not by things, but by the views which they take of them.',c:'Epictetus &mdash; Enchiridion 5',r:'Find the judgment hidden inside your upset. Is it certainly true? What would a wiser person make of the same event?'},
+  {q:'The best revenge is to be unlike him who performed the injury.',c:'Marcus Aurelius &mdash; Meditations 6.6',r:'Who has wronged you? Instead of matching them, let your response show the character you would rather have.'},
+  {q:'Do not seek for things to happen as you wish, but wish for them to happen as they do.',c:'Epictetus &mdash; Enchiridion 8',r:'Where are you fighting reality? Practice willing one thing exactly as it is &mdash; and feel the struggle loosen.'},
+  {q:'You could leave life right now. Let that determine what you do and say and think.',c:'Marcus Aurelius &mdash; Meditations 2.11',r:'If this were your last day, what pettiness would you drop? What would you finally say to someone?'},
+  {q:'Fate guides the willing, but drags the unwilling.',c:'Seneca &mdash; Letters 107.11',r:'What inevitable thing are you resisting? Can you meet it walking rather than be dragged?'},
+  {q:'To relax the mind is to lose it.',c:'Musonius Rufus &mdash; Fragments',r:'Where have you let attention slacken into autopilot? Return, just for a moment, to full presence in what you are doing.'},
+  {q:'The wise man is content with his lot, whatever it may be, without wishing for what he has not.',c:'Seneca &mdash; tradition of the Letters',r:'List three things you already have that you once wished for. Let the wanting rest there a while.'}
+];
+function drawStoic(){
+  var d=DS[Math.floor(Math.random()*DS.length)];
+  document.getElementById('ds-q').innerHTML=d.q;
+  document.getElementById('ds-c').innerHTML='<b>'+d.c+'</b>';
+  var r=document.getElementById('ds-r');
+  r.style.display='block';
+  r.innerHTML='<strong style="color:var(--gold);font-family:var(--serif)">Sit with this:</strong> '+d.r;
+}
+window.drawStoic=drawStoic;
+
+/* ====================== MODERN ====================== */
+document.getElementById('modern-body').innerHTML=
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">The revival</div><h1 style="font-size:clamp(2rem,6vw,3rem)">Modern Stoicism</h1><div class="sub">From the therapist&rsquo;s couch to the locker room &mdash; an ancient philosophy&rsquo;s improbable second life.</div></div>'+
+  card('\u{1F9E0}','Stoicism &amp; Cognitive Therapy','the direct ancestor',
+    '<p>Both founders of cognitive therapy credited the Stoics openly. <strong>Albert Ellis</strong>, who built Rational Emotive Behavior Therapy in the 1950s, repeatedly quoted Epictetus &mdash; &ldquo;Men are disturbed not by things, but by the views which they take of them.&rdquo;</p>'+
+    '<p><strong>Aaron Beck</strong> and colleagues wrote, in their 1979 manual, that the philosophical origins of cognitive therapy trace back to the Stoics, naming Zeno, Chrysippus, Seneca, Epictetus and Marcus Aurelius. The Stoic <strong>discipline of assent</strong> &mdash; refusing agreement to distorted impressions &mdash; maps directly onto cognitive distancing and modern &ldquo;defusion,&rdquo; and Stoic <span class="gk">prosoch&#275;</span> (attention) prefigures mindfulness.</p>')+
+  card('\u{1F54A}','Frankl &amp; Logotherapy','the last human freedom',
+    '<p>Viktor Frankl, Holocaust survivor and founder of logotherapy (from <span class="gk">logos</span>, &ldquo;meaning&rdquo;), taught that everything can be taken from a person but one thing &mdash; the freedom to choose one&rsquo;s attitude in any circumstance. Scholars call this unmistakably Stoic: a near-restatement of Epictetus on what remains within our power.</p>')+
+  card('\u{1F4DA}','The Contemporary Figures','who carried it forward',
+    '<p>The scholarly recovery began with <strong>Pierre Hadot</strong> (<span class="it">Philosophy as a Way of Life</span>; <span class="it">The Inner Citadel</span>), who reframed Stoicism as a set of spiritual exercises rather than abstract theory.</p>'+
+    '<h4>Bringing it to a wide audience</h4><ul>'+
+    '<li><strong>William B. Irvine</strong> &mdash; <span class="it">A Guide to the Good Life</span> (2008)</li>'+
+    '<li><strong>Donald Robertson</strong> &mdash; <span class="it">How to Think Like a Roman Emperor</span>; a CBT therapist who links the two traditions</li>'+
+    '<li><strong>Massimo Pigliucci</strong> &mdash; <span class="it">How to Be a Stoic</span></li>'+
+    '<li><strong>Ryan Holiday</strong> &mdash; <span class="it">The Obstacle Is the Way</span>, <span class="it">The Daily Stoic</span>, <span class="it">Stillness Is the Key</span>; his Stoicism titles have sold millions of copies</li></ul>'+
+    '<p>The <strong>Modern Stoicism</strong> organization grew from a 2012 &ldquo;Live Like a Stoic for a Week&rdquo; experiment and now runs annual <strong>Stoic Week</strong> and the <strong>Stoicon</strong> conference.</p>')+
+  card('\u2694','The Military &amp; Sport','resilience under fire',
+    '<p>Vice Admiral <strong>James Stockdale</strong> credited Epictetus with surviving seven and a half years as a POW in Vietnam, including four in solitary. As his plane was shot down he reportedly thought: &ldquo;I am leaving the world of technology and entering the world of Epictetus.&rdquo; He lived on Enchiridion 9 &mdash; lameness is an impediment to the leg, but not to the will &mdash; applied literally to his broken body.</p>'+
+    '<p>The <strong>Stockdale Paradox</strong> (coined by Jim Collins): hold unwavering faith you will prevail in the end, <em>and</em> confront the most brutal facts of your present reality. Stoic ideas also informed the US Army&rsquo;s resilience programs, and Holiday&rsquo;s <span class="it">The Obstacle Is the Way</span> spread through the NFL and Silicon Valley.</p>')+
+  card('\u26A0','The Critiques','&ldquo;$toicism&rdquo; and &ldquo;Broicism&rdquo;',
+    '<p>The revival has its discontents. Massimo Pigliucci distinguishes the genuine philosophy from its commodified distortions &mdash; &ldquo;$toicism&rdquo; (chasing wealth and fame) and &ldquo;Broicism&rdquo; (macho self-help) &mdash; arguing that popular Stoicism strips out <strong>justice, cosmopolitanism and the metaphysics</strong>, keeping only the life-hacks.</p>'+
+    '<p><strong>Nancy Sherman</strong> (<span class="it">Stoic Warriors</span>, <span class="it">Stoic Wisdom</span>) warns that an extreme Stoicism can become harmful emotional suppression, connected to &ldquo;moral injury,&rdquo; and argues instead for a <em>moderate</em> Stoicism. Others &mdash; Lawrence Becker&rsquo;s <span class="it">A New Stoicism</span>, John Sellars, Pigliucci &mdash; hold the ethics can survive even if the ancient physics is updated to a modern web of cause and effect.</p>'+
+    '<div class="note">This tension &mdash; can you keep the ethics without the <span class="gk">logos</span>? &mdash; is the central live debate in Stoicism today.</div>');
+
+/* ====================== AI AGE ====================== */
+document.getElementById('aiage-body').innerHTML=
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">The newest frontier</div><h1 style="font-size:clamp(2rem,6vw,3rem)">Stoicism in the AI Age</h1><div class="sub">A philosophy built for things outside our control meets an age defined by them.</div></div>'+
+  '<p class="lead">No ancient Stoic imagined the feed, the notification, or the recommender algorithm. Yet the central Stoic move &mdash; sort the world into what is and is not up to you &mdash; may be more useful now than at any time since Nicopolis.</p>'+
+  card('\u{1F4F1}','The Attention Economy','prosoch&#275; against the feed',
+    '<p>The <strong>dichotomy of control</strong> applies cleanly to digital life: the algorithm, the viral outrage, the count of likes, the opinions of strangers &mdash; none are up to us. Our attention and our judgments are. The Stoic discipline of <span class="gk">prosoch&#275;</span> &mdash; continuous attention to the ruling faculty &mdash; is a direct counter to fragmented, dopamine-driven scrolling.</p>'+
+    '<p>Negative visualization and voluntary discomfort answer comparison culture and comfort-overload; the view from above shrinks the day&rsquo;s online storms back to their true size.</p>')+
+  card('\u{1F9D8}','Digital Minimalism','attention as a finite good',
+    '<p>Cal Newport&rsquo;s <span class="it">Digital Minimalism</span> and <span class="it">Deep Work</span> are frequently read as Stoic in spirit: intentionality, treating attention as a finite resource, and reclaiming autonomy from technologies engineered to capture it &mdash; an update of the Stoic insistence on guarding the one thing that is truly ours.</p>')+
+  card('\u{1F916}','Can a Machine Be Stoic?','logos &amp; computation',
+    '<p>Scholars draw a tempting analogy between the Stoic <span class="gk">logos</span> &mdash; the rational order pervading the cosmos, of which human reason is a fragment &mdash; and computational or rational order. The phrase &ldquo;computational Stoicism&rdquo; (from Christian &amp; Griffiths&rsquo; <span class="it">Algorithms to Live By</span>) names the peace of mind that comes from using the best available algorithm and accepting the result.</p>'+
+    '<p>But most commentators conclude that AI is best treated as a Stoic <strong>indifferent</strong> &mdash; a tool, neither good nor bad except in its use &mdash; and that a machine can at best <em>emulate</em>, not <em>possess</em>, virtue, since the Stoics held genuine virtue to require conscious intention and understanding.</p>')+
+  card('\u{1F9ED}','Determinism &amp; AI Risk','the river and its tributaries',
+    '<p>A 2024 paper in <span class="it">AI and Ethics</span> applies Stoic determinism and the dichotomy of control to AI risk: even in a &ldquo;fated&rdquo; world, proximate human action still shapes outcomes &mdash; the river is fated to reach the sea, but tributaries shape its path. Stoic <span class="gk">heimarmen&#275;</span> is not fatalism: Chrysippus&rsquo; cylinder shows that our own nature remains a real cause. The lesson for AI safety: acceptance of uncertainty is not surrender of responsibility.</p>')+
+  card('\u269C','A Stoic Operating System','for screen-age living',
+    '<p>Practical adaptations the modern Stoics recommend:</p>'+
+    '<ul><li><strong>Before opening an app:</strong> is what I&rsquo;m about to seek here up to me?</li>'+
+    '<li><strong>On encountering outrage:</strong> withhold assent &mdash; the impression is not yet a judgment.</li>'+
+    '<li><strong>Comparison:</strong> others&rsquo; curated highlight reels are dispreferred indifferents at most; my character is the only good.</li>'+
+    '<li><strong>The digital fast:</strong> voluntary discomfort &mdash; periods offline &mdash; to prove the fear of missing out is itself an opinion I can revoke.</li>'+
+    '<li><strong>The view from above:</strong> close the screen; remember the scale of the world the feed is not.</li></ul>'+
+    '<div class="note">The deeper warning the critics raise carries here too: a Stoicism reduced to a personal calm-hack, stripped of justice and our duty to the wider circles, risks becoming exactly the self-soothing the attention economy would prefer we settle for.</div>');
+
+/* ====================== ADVISOR (MARCUS) ====================== */
+document.getElementById('advisor-body').innerHTML=
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Counsel</div><h1 style="font-size:clamp(2rem,6vw,3rem)">Consult MARCUS</h1><div class="sub">A Stoic counsel, speaking from the texts in this archive. Bring a real difficulty &mdash; a worry, a decision, an injury, a loss.</div></div>'+
+  '<div class="marcus">'+
+    '<div class="marcus-hd"><span class="bust">\u{1F5FF}</span><div><div class="nm">MARCUS</div><div class="rl">a Stoic voice &mdash; not the historical emperor</div></div></div>'+
+    '<div class="marcus-log" id="marcus-log">'+
+      '<div class="mrow sage"><div class="who">Marcus</div><div class="bub">Welcome, friend. Tell me plainly what disturbs you, and we will look together at what is yours to govern and what is not. Speak as you would to one who has also struggled.</div></div>'+
+    '</div>'+
+    '<div class="chips" style="padding:0 1.1rem .2rem">'+
+      '<span class="chip" onclick="marcusAsk(\x27I am anxious about something outside my control.\x27)">On anxiety</span>'+
+      '<span class="chip" onclick="marcusAsk(\x27Someone wronged me and I am angry.\x27)">On anger</span>'+
+      '<span class="chip" onclick="marcusAsk(\x27I am afraid of failing at something important.\x27)">On fear of failure</span>'+
+      '<span class="chip" onclick="marcusAsk(\x27How do I deal with loss and grief?\x27)">On loss</span>'+
+      '<span class="chip" onclick="marcusAsk(\x27I waste my days and cannot focus.\x27)">On distraction</span>'+
+    '</div>'+
+    '<div class="marcus-in">'+
+      '<input id="marcus-input" placeholder="Speak your difficulty\u2026" onkeydown="if(event.key===\x27Enter\x27)marcusSend()">'+
+      '<button class="pbtn sm" onclick="marcusSend()">Ask</button>'+
+    '</div>'+
+    '<div class="keyrow"><span>Anthropic key (stored only in this browser):</span><input id="marcus-key" type="password" placeholder="sk-ant-\u2026" value=""><button class="pbtn sm" type="button" onclick="marcusForgetKey()" title="Erase your key from this browser">Forget</button></div>'+
+  '</div>'+
+  '<p class="disc">MARCUS is an AI counsel powered by Anthropic&rsquo;s Claude, prompted from this archive&rsquo;s sources. It speaks in a Stoic register but is not a person, not a therapist, and not the historical Marcus Aurelius. For crises or medical concerns, seek a qualified human. Your key is held only in this browser&rsquo;s local storage and sent solely to Anthropic.</p>';
+
+var MARCUS_HISTORY=[];
+function _mkey(){
+  var inp=document.getElementById('marcus-key');
+  var k=inp&&inp.value.trim();
+  if(k){try{localStorage.setItem('avidaa_anthropic_key',k);}catch(e){}return k;}
+  try{var s=localStorage.getItem('avidaa_anthropic_key');if(s){if(inp)inp.value=s;return s;}}catch(e){}
+  return '';
+}
+function marcusForgetKey(){
+  try{localStorage.removeItem('avidaa_anthropic_key');}catch(e){}
+  var inp=document.getElementById('marcus-key');if(inp)inp.value='';
+  MARCUS_HISTORY=[];
+  marcusAdd('sage','Your key has been erased from this browser, and our conversation cleared. Nothing of it remains on this device.');
+}
+window.marcusForgetKey=marcusForgetKey;
+function marcusAdd(role,text){
+  var log=document.getElementById('marcus-log');
+  var cls=role==='user'?'you':'sage';
+  var who=role==='user'?'You':'Marcus';
+  var div=document.createElement('div');
+  div.className='mrow '+cls;
+  div.innerHTML='<div class="who">'+who+'</div><div class="bub">'+text.replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div>';
+  log.appendChild(div);log.scrollTop=log.scrollHeight;
+  return div;
+}
+function marcusAsk(q){var inp=document.getElementById('marcus-input');inp.value=q;marcusSend();}
+window.marcusAsk=marcusAsk;
+function marcusSend(){
+  var inp=document.getElementById('marcus-input');
+  var msg=inp.value.trim();if(!msg)return;
+  var key=_mkey();
+  if(!key){marcusAdd('sage','I would gladly counsel you, but I need an Anthropic API key first &mdash; enter one in the field below, and it will stay only in your own browser.');return;}
+  inp.value='';
+  marcusAdd('user',msg);
+  MARCUS_HISTORY.push({role:'user',content:msg});
+  var thinking=marcusAdd('sage','\u2026');
+  var SYS='You are MARCUS, a Stoic counsel for the AVIDAA STOA archive. You are NOT the historical Marcus Aurelius and you must never claim to be a real person, therapist, or doctor. You speak in a calm, warm, plain Stoic register \u2014 like a wise friend who has also suffered, not a lecturer.\n\nGround every reply in genuine Stoic philosophy: the dichotomy of control (Epictetus, ta eph\u2019 h\u0113min), the four cardinal virtues (wisdom, courage, justice, temperance) as forms of knowledge, the discipline of assent (judgments, not things, disturb us \u2014 Enchiridion 5), preferred and dispreferred indifferents, amor fati, premeditatio malorum, the view from above, and living in agreement with nature. You may quote Marcus Aurelius (Meditations), Epictetus (Enchiridion/Discourses), Seneca (Letters), Musonius Rufus, Cleanthes \u2014 cite the source briefly and accurately. NEVER invent a citation; if unsure of the exact place, attribute generally (e.g. \u201cas Seneca writes in his letters\u201d). Do not use the four common misquotations (\u201cYou have power over your mind\u2026\u201d, \u201cThe happiness of your life\u2026\u201d as verbatim Marcus; \u201cLuck is what happens\u2026\u201d and \u201cEvery new beginning\u2026\u201d as Seneca).\n\nMethod: first reflect back what is and is not in the person\u2019s control; then offer one or two concrete Stoic practices; close with a short relevant quote. Keep replies to 2\u20134 short paragraphs. Be honest, never preachy. If someone is in real crisis or describes self-harm, gently and directly urge them to reach out to a qualified human or local emergency services \u2014 the Stoics valued life and community.';
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:700,system:SYS,messages:MARCUS_HISTORY})
+  }).then(function(r){return r.json();}).then(function(data){
+    var txt='';
+    if(data&&data.content&&data.content.length){
+      txt=data.content.filter(function(b){return b.type==='text';}).map(function(b){return b.text;}).join('\n').trim();
+    }
+    if(!txt&&data&&data.error){txt='A difficulty reaching counsel: '+(data.error.message||'unknown error')+'. Check your API key.';}
+    if(!txt)txt='I could not form a reply just now. Try once more.';
+    thinking.querySelector('.bub').innerHTML=txt.replace(/</g,'&lt;').replace(/\n/g,'<br>');
+    MARCUS_HISTORY.push({role:'assistant',content:txt});
+    document.getElementById('marcus-log').scrollTop=document.getElementById('marcus-log').scrollHeight;
+  }).catch(function(e){
+    thinking.querySelector('.bub').innerHTML='The line to counsel failed: '+String(e).replace(/</g,'&lt;')+'. This often means a network or key issue.';
+  });
+}
+window.marcusSend=marcusSend;
+
+/* ====================== BLOG ====================== */
+var POSTS=[
+{
+  id:'losing-yourself',
+  date:'On self-possession',
+  tag:'Why it matters',
+  title:'Why Stoicism, and Why Now',
+  lede:'You are being pulled apart by a thousand small forces, each too small to fight. This is what the philosophy is for.',
+  body:
+    '<p>You have probably arrived here the way most people do: not out of academic curiosity, but because something is wrong. A low hum of anxiety. The sense that your attention is no longer entirely yours. The feeling, hard to name, that you are becoming a slightly different person in each room you enter, each app you open &mdash; and that somewhere in the shuffle the real one has gone quiet.</p>'+
+    '<p>That feeling has a name the Stoics would recognize at once. They would call it living <em>outside yourself</em> &mdash; staking your peace on things that were never in your keeping.</p>'+
+    '<h3>The oldest problem, in a new costume</h3>'+
+    '<p>Twenty-three centuries ago, a merchant named Zeno lost his entire fortune in a shipwreck and washed up in Athens with nothing. Out of that ruin he built a philosophy whose first question was brutally simple: <em>what, of everything I just lost, was ever truly mine?</em> The ship, the cargo, his reputation as a successful trader &mdash; none of it. What remained was the one thing the sea could not take: how he chose to meet what had happened.</p>'+
+    '<div class="bq">Some things are in our control and others not.<cite>Epictetus &mdash; Enchiridion 1</cite></div>'+
+    '<p>This is not a comforting platitude. It is a knife. It cuts your life cleanly into two territories, and almost everything you worry about falls on the far side of the line &mdash; other people&rsquo;s opinions, the algorithm&rsquo;s verdict, whether the thing you sent will be liked, whether the future will be kind. None of it is up to you. What <em>is</em> up to you is small, unglamorous, and total: your judgments, your choices, your character in this exact moment.</p>'+
+    '<h3>How a person gets lost</h3>'+
+    '<p>You do not lose yourself all at once. You lose yourself in increments, by repeatedly handing the verdict on your own worth to things outside the line. You refresh to see if you mattered today. You rehearse arguments with people who are not in the room. You let a stranger&rsquo;s passing cruelty set the weather inside your skull for an afternoon. Each surrender is tiny. Together they hollow you out.</p>'+
+    '<p>The Stoics had a word for the antidote: <span class="gk">prosoch&#275;</span> &mdash; continuous attention to the one part of you that is genuinely yours, the faculty that judges. Not vigilance against the world, which you cannot control, but vigilance over your own assent. When an impression arrives &mdash; <em>this is a disaster, I have been insulted, I am falling behind</em> &mdash; you learn to pause before you sign for it. The impression is delivered to you. The signature is yours to withhold.</p>'+
+    '<div class="bq">Men are disturbed not by things, but by the views which they take of them.<cite>Epictetus &mdash; Enchiridion 5</cite></div>'+
+    '<h3>This is not detachment</h3>'+
+    '<p>People hear &ldquo;Stoic&rdquo; and picture a cold man feeling nothing. That is the opposite of the truth. The Stoics did not want you numb; they wanted you <em>undefeated</em>. They distinguished the destructive passions &mdash; the fear and craving and resentment that come from false judgments &mdash; from the rational joy, the caution, the steady goodwill that remain when those false judgments fall away. The goal was never to care less. It was to care about the right things, the things that are actually yours, and to stop bleeding yourself dry over the rest.</p>'+
+    '<p>That is why Stoicism, and why now. Not because the world has never been chaotic &mdash; Marcus Aurelius wrote his private notes by lamplight in a military camp during a plague, watching the empire strain. The world has always been outside our control. What is new is the sheer number of small hands reaching for your attention, each one inviting you to locate your peace somewhere you can never guard it.</p>'+
+    '<p>The philosophy is a way of drawing the line again. Of saying: <em>this is mine, and that is not, and I will spend my one life tending the first.</em> That is not a smaller life. It is the only one you actually have.</p>'+
+    '<div class="bsig">AVIDAA &middot; STOA</div>'
+},
+{
+  id:'were-they-good',
+  date:'On honest heroes',
+  tag:'The Stoics',
+  title:'Were They Actually Good Men?',
+  lede:'An emperor, a slave, and a fabulously wealthy royal tutor. The Stoics aimed at virtue &mdash; but they were strivers, not saints, and they said so.',
+  body:
+    '<p>It is fair to ask. A philosophy that puts goodness above everything ought to be judged by whether its teachers were good. So: were they?</p>'+
+    '<p>The honest answer is that they were trying, openly and imperfectly, and that the trying was the whole point. The Stoics held that a genuinely complete good person &mdash; the <span class="gk">sage</span> &mdash; was almost vanishingly rare. Seneca said such a man is born about as often as the phoenix, once every five hundred years. They did not think of themselves as having arrived. They thought of themselves as on the road.</p>'+
+    '<div class="bq">It is the part of a good man to be content with his progress, and to keep walking.<cite>after Seneca &mdash; the spirit of the Letters</cite></div>'+
+    '<h3>Seneca, the complicated one</h3>'+
+    '<p>Start with the hardest case. Seneca wrote luminously about the worthlessness of wealth while becoming one of the richest men in Rome. He preached mercy while serving as tutor and minister to Nero &mdash; the emperor who would eventually order his death. His own contemporaries called this hypocrisy, and they were not entirely wrong.</p>'+
+    '<p>But notice what Seneca never did: he never claimed to be a sage. He called himself a patient describing his illness to a fellow patient. &ldquo;I am not wise,&rdquo; he wrote in effect, &ldquo;and I will not be; I only ask to become a little less bad each day.&rdquo; The gap between his life and his words is real. It is also exactly the gap every honest person lives inside. He wrote from within it rather than pretending he had crossed it.</p>'+
+    '<h3>Marcus, the reluctant ruler</h3>'+
+    '<p>Marcus Aurelius held the most absolute power on earth and spent his private journal scolding himself for impatience and reminding himself not to become &ldquo;Caesar-ish.&rdquo; By the standards of Roman emperors he governed with rare restraint. By ours, he still waged brutal wars and presided over an empire that persecuted Christians. He was not a modern liberal in a toga. He was a man with enormous power trying, daily, not to be corrupted by it &mdash; and writing down the effort so he could hold himself to it.</p>'+
+    '<div class="bq">Waste no more time arguing what a good man should be. Be one.<cite>Marcus Aurelius &mdash; Meditations 10.16</cite></div>'+
+    '<h3>The ones who paid in full</h3>'+
+    '<p>Then there are the cleaner cases. <strong>Epictetus</strong> was born a slave, lamed by a master, freed, exiled &mdash; and taught inner freedom to the powerful without a trace of bitterness. <strong>Musonius Rufus</strong> argued, in the first century, that women had the same capacity for reason as men and deserved the same education. <strong>Cato</strong> chose death over collaborating with what he saw as tyranny, and Rome remembered his integrity for centuries.</p>'+
+    '<h3>Why the imperfection is the lesson</h3>'+
+    '<p>If the Stoics had been spotless, they would be useless to us. We are not spotless. The reason their writing still works is that it was written by people who knew they fell short and kept going anyway &mdash; not to reach some final purity, but because the walking itself is what a good life consists of. They did not lose themselves in the gap between their ideals and their conduct. They used the ideals to keep finding their way back.</p>'+
+    '<p>That is the most honest thing a philosophy of virtue can offer: not a promise that you will become perfect, but a method for not giving up on becoming better.</p>'+
+    '<div class="bsig">AVIDAA &middot; STOA</div>'
+},
+{
+  id:'feed-and-the-line',
+  date:'On the attention economy',
+  tag:'The AI Age',
+  title:'The Feed Is Built to Make You Forget the Line',
+  lede:'Every product fighting for your attention has a stake in your forgetting which things are actually yours. Here is how to remember.',
+  body:
+    '<p>The dichotomy of control &mdash; the line between what is yours and what is not &mdash; is the most useful idea the Stoics ever produced. It is also the single idea the modern attention economy is most determined to blur.</p>'+
+    '<p>Consider what a feed actually does. It takes things that are firmly on the far side of the line &mdash; strangers&rsquo; opinions, distant outrages, the comparative shape of other people&rsquo;s curated lives &mdash; and delivers them to you as if they were urgent, personal, and yours to resolve. It invites you, hundreds of times a day, to locate your peace somewhere you can never guard it. This is not an accident. It is the business model.</p>'+
+    '<div class="bq">If you are distressed by anything external, the pain is not due to the thing itself, but to your estimate of it; and this you have the power to revoke at any moment.<cite>Marcus Aurelius &mdash; Meditations 8.47</cite></div>'+
+    '<h3>A Stoic does not need to log off forever</h3>'+
+    '<p>The point is not digital monasticism. The point is to carry the line with you when you open the screen. A few working rules, drawn straight from the ancient practices:</p>'+
+    '<p><strong>Before you open it, ask:</strong> is what I am about to seek here something that is up to me? If you are reaching for the phone to find out whether you mattered today, you are reaching toward the far side of the line, and no number you find there will ever be enough.</p>'+
+    '<p><strong>When outrage arrives, withhold your signature.</strong> The impression &mdash; <em>this is monstrous, I must respond</em> &mdash; is delivered to you automatically. Assent is still yours. Pause. Most of what the feed presents as requiring your immediate moral verdict requires nothing from you at all.</p>'+
+    '<p><strong>Treat the highlight reel as a dispreferred indifferent, at most.</strong> Other people&rsquo;s visible success is not an injury to you and not a measure of you. Your character is the only good. Theirs is the only good that is theirs. The comparison is a category error the interface is designed to provoke.</p>'+
+    '<p><strong>Practice the voluntary fast.</strong> Put it down for a day. Not as punishment &mdash; as an experiment to prove to yourself that the dread of missing out is itself just an opinion, and opinions can be revoked. The Stoics rehearsed loss on purpose so that real loss would find them ready. A day without the feed is a very small rehearsal with a very large lesson.</p>'+
+    '<h3>The deeper trap</h3>'+
+    '<p>There is one more thing the critics of modern Stoicism are right to warn about, and it applies here exactly. A Stoicism that becomes nothing but a personal calm-hack &mdash; breathe, detach, the algorithm cannot touch your inner citadel &mdash; can quietly become the very passivity the attention economy would prefer. The ancients did not retreat into private serenity. They held that justice and concern for the wider human circle were among the cardinal virtues. The line that protects your peace is not a wall you hide behind. It is the boundary that frees you to act well in the world &mdash; clear-eyed, undisturbed, and still very much engaged.</p>'+
+    '<p>Guard what is yours. Then go and do something useful with the steadiness it buys you.</p>'+
+    '<div class="bsig">AVIDAA &middot; STOA</div>'
+}
+];
+function renderBlogList(){
+  var h='<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Essays</div><h1 style="font-size:clamp(2rem,6vw,3rem)">The Blog</h1><div class="sub">Why an ancient discipline still matters &mdash; and how it keeps you from losing yourself in an age built to pull you apart.</div></div>';
+  h+='<div class="blog-list">';
+  POSTS.forEach(function(p){
+    h+='<div class="bcard" onclick="openPost(\x27'+p.id+'\x27)">'+
+       '<div class="bmeta">'+p.tag+'</div>'+
+       '<div class="btt">'+p.title+'</div>'+
+       '<div class="bex">'+p.lede+'</div>'+
+       '<span class="bmore">Read &rarr;</span></div>';
+  });
+  h+='</div>';
+  document.getElementById('blog-body').innerHTML=h;
+}
+function openPost(id){
+  var p=null;for(var i=0;i<POSTS.length;i++)if(POSTS[i].id===id)p=POSTS[i];
+  if(!p)return;
+  var h='<div class="bpost"><button class="bback" onclick="renderBlogList()">&larr; All essays</button>'+
+    '<div class="bmeta">'+p.tag+'</div><h1>'+p.title+'</h1>'+
+    '<div class="blede">'+p.lede+'</div>'+p.body+'</div>';
+  document.getElementById('blog-body').innerHTML=h;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+window.openPost=openPost;
+window.renderBlogList=renderBlogList;
+renderBlogList();
+
+/* ---- INIT ---- */
+buildNav();
+document.getElementById('nb-home').classList.add('active');
+(function(){
+  var hdr=document.querySelector('.site-header');
+  var ticking=false;
+  function upd(){
+    if(window.scrollY>40)hdr.classList.add('shrunk');else hdr.classList.remove('shrunk');
+    ticking=false;
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){window.requestAnimationFrame(upd);ticking=true;}
+  },{passive:true});
+})();
+try{var sk=localStorage.getItem('avidaa_anthropic_key');if(sk){var ki=document.getElementById('marcus-key');if(ki)ki.value=sk;}}catch(e){}
+</script>
+</body>
+</html>
