@@ -1,0 +1,92 @@
+Archived (removed from the live page) by the chatbot audit 20261125_1459.
+Original file: index.html
+
+/* ===== MARCUS advisor (HTML+JS, user API key, api.anthropic.com fetch) (bytes 7110) ===== */
+document.getElementById('advisor-body').innerHTML=
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Counsel</div><h1 style="font-size:clamp(2rem,6vw,3rem)" id="s-consult-marcus">Consult MARCUS</h1><div class="sub">A Stoic counsel, speaking from the texts in this archive. Bring a real difficulty &mdash; a worry, a decision, an injury, a loss.</div></div>'+
+  '<div class="marcus">'+
+    '<div class="marcus-hd"><span class="bust">\u{1F5FF}</span><div><div class="nm">MARCUS</div><div class="rl">a Stoic voice &mdash; not the historical emperor</div></div></div>'+
+    '<div class="marcus-log" id="marcus-log">'+
+      '<div class="mrow sage"><div class="who">Marcus</div><div class="bub">Welcome, friend. Tell me plainly what disturbs you, and we will look together at what is yours to govern and what is not. Speak as you would to one who has also struggled.</div></div>'+
+    '</div>'+
+    '<div class="chips" style="padding:0 1.1rem .2rem">'+
+      '<span class="chip" onclick="marcusAsk(\x27I am anxious about something outside my control.\x27)">On anxiety</span>'+
+      '<span class="chip" onclick="marcusAsk(\x27Someone wronged me and I am angry.\x27)">On anger</span>'+
+      '<span class="chip" onclick="marcusAsk(\x27I am afraid of failing at something important.\x27)">On fear of failure</span>'+
+      '<span class="chip" onclick="marcusAsk(\x27How do I deal with loss and grief?\x27)">On loss</span>'+
+      '<span class="chip" onclick="marcusAsk(\x27I waste my days and cannot focus.\x27)">On distraction</span>'+
+    '</div>'+
+    '<div class="marcus-in">'+
+      '<input id="marcus-input" placeholder="Speak your difficulty\u2026" onkeydown="if(event.key===\x27Enter\x27)marcusSend()">'+
+      '<button class="pbtn sm" onclick="marcusSend()">Ask</button>'+
+    '</div>'+
+    '<div class="keyrow"><span>Anthropic key (stored only in this browser):</span><input id="marcus-key" type="password" placeholder="sk-ant-\u2026" value=""><button class="pbtn sm" type="button" onclick="marcusForgetKey()" title="Erase your key from this browser">Forget</button></div>'+
+  '</div>'+
+  '<p class="disc">MARCUS is an AI counsel powered by Anthropic&rsquo;s Claude, prompted from this archive&rsquo;s sources. It speaks in a Stoic register but is not a person, not a therapist, and not the historical Marcus Aurelius. For crises or medical concerns, seek a qualified human. Your key is held only in this browser&rsquo;s local storage and sent solely to Anthropic.</p>';
+
+var MARCUS_HISTORY=[];
+function _mkey(){
+  var inp=document.getElementById('marcus-key');
+  var k=inp&&inp.value.trim();
+  if(k){try{localStorage.setItem('avidaa_anthropic_key',k);}catch(e){}return k;}
+  try{var s=localStorage.getItem('avidaa_anthropic_key');if(s){if(inp)inp.value=s;return s;}}catch(e){}
+  return '';
+}
+function marcusForgetKey(){
+  try{localStorage.removeItem('avidaa_anthropic_key');}catch(e){}
+  var inp=document.getElementById('marcus-key');if(inp)inp.value='';
+  MARCUS_HISTORY=[];
+  marcusAdd('sage','Your key has been erased from this browser, and our conversation cleared. Nothing of it remains on this device.');
+}
+window.marcusForgetKey=marcusForgetKey;
+function marcusAdd(role,text){
+  var log=document.getElementById('marcus-log');
+  var cls=role==='user'?'you':'sage';
+  var who=role==='user'?'You':'Marcus';
+  var div=document.createElement('div');
+  div.className='mrow '+cls;
+  div.innerHTML='<div class="who">'+who+'</div><div class="bub">'+text.replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div>';
+  log.appendChild(div);log.scrollTop=log.scrollHeight;
+  return div;
+}
+function marcusAsk(q){var inp=document.getElementById('marcus-input');inp.value=q;marcusSend();}
+window.marcusAsk=marcusAsk;
+function marcusSend(){
+  var inp=document.getElementById('marcus-input');
+  var msg=inp.value.trim();if(!msg)return;
+  var key=_mkey();
+  if(!key){marcusAdd('sage','I would gladly counsel you, but I need an Anthropic API key first &mdash; enter one in the field below, and it will stay only in your own browser.');return;}
+  inp.value='';
+  marcusAdd('user',msg);
+  MARCUS_HISTORY.push({role:'user',content:msg});
+  var thinking=marcusAdd('sage','\u2026');
+  var SYS='You are MARCUS, a Stoic counsel for the AVIDAA STOA archive. You are NOT the historical Marcus Aurelius and you must never claim to be a real person, therapist, or doctor. You speak in a calm, warm, plain Stoic register \u2014 like a wise friend who has also suffered, not a lecturer.\n\nGround every reply in genuine Stoic philosophy: the dichotomy of control (Epictetus, ta eph\u2019 h\u0113min), the four cardinal virtues (wisdom, courage, justice, temperance) as forms of knowledge, the discipline of assent (judgments, not things, disturb us \u2014 Enchiridion 5), preferred and dispreferred indifferents, amor fati, premeditatio malorum, the view from above, and living in agreement with nature. You may quote Marcus Aurelius (Meditations), Epictetus (Enchiridion/Discourses), Seneca (Letters), Musonius Rufus, Cleanthes \u2014 cite the source briefly and accurately. NEVER invent a citation; if unsure of the exact place, attribute generally (e.g. \u201cas Seneca writes in his letters\u201d). Do not use the four common misquotations (\u201cYou have power over your mind\u2026\u201d, \u201cThe happiness of your life\u2026\u201d as verbatim Marcus; \u201cLuck is what happens\u2026\u201d and \u201cEvery new beginning\u2026\u201d as Seneca).\n\nMethod: first reflect back what is and is not in the person\u2019s control; then offer one or two concrete Stoic practices; close with a short relevant quote. Keep replies to 2\u20134 short paragraphs. Be honest, never preachy. If someone is in real crisis or describes self-harm, gently and directly urge them to reach out to a qualified human or local emergency services \u2014 the Stoics valued life and community.';
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:700,system:SYS,messages:MARCUS_HISTORY})
+  }).then(function(r){return r.json();}).then(function(data){
+    var txt='';
+    if(data&&data.content&&data.content.length){
+      txt=data.content.filter(function(b){return b.type==='text';}).map(function(b){return b.text;}).join('\n').trim();
+    }
+    if(!txt&&data&&data.error){txt='A difficulty reaching counsel: '+(data.error.message||'unknown error')+'. Check your API key.';}
+    if(!txt)txt='I could not form a reply just now. Try once more.';
+    thinking.querySelector('.bub').innerHTML=txt.replace(/</g,'&lt;').replace(/\n/g,'<br>');
+    MARCUS_HISTORY.push({role:'assistant',content:txt});
+    document.getElementById('marcus-log').scrollTop=document.getElementById('marcus-log').scrollHeight;
+  }).catch(function(e){
+    thinking.querySelector('.bub').innerHTML='The line to counsel failed: '+String(e).replace(/</g,'&lt;')+'. This often means a network or key issue.';
+  });
+}
+window.marcusSend=marcusSend;
+
+
+/* ===== replaced: advisor tile text ===== */
+Consult <b>MARCUS</b> &mdash; a Stoic counsel powered by the texts in this archive.
+Archived (removed from the live page) by the chatbot audit 20261125_1459.
+Original file: index.html
+
+/* ===== stored key prefill (bytes 139) ===== */
+try{var sk=localStorage.getItem('avidaa_anthropic_key');if(sk){var ki=document.getElementById('marcus-key');if(ki)ki.value=sk;}}catch(e){}
+
