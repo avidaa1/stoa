@@ -380,7 +380,7 @@ hr.orn::before{content:"\269C";color:var(--gold);font-size:1.1rem;opacity:.6}
 <div class="page active" id="page-home">
   <div class="hero">
     <div class="eyebrow">Philosophy as a way of life &middot; c. 300 BCE &mdash; today</div>
-    <h1>Stoicism</h1>
+    <h1 id="s-stoicism">Stoicism</h1>
     <div class="sub">From Zeno&rsquo;s painted porch in Athens to the age of algorithms &mdash; the art of living well by mastering the only thing that is truly ours: our own judgment.</div>
     <div class="rule"></div>
     <div class="greek">&zeta;&eta;&nu; &#8001;&mu;&omicron;&lambda;&omicron;&gamma;&omicron;&upsilon;&mu;&epsilon;&nu;&omega;&sigmaf; &tau;&#8135; &phi;&upsilon;&sigma;&epsilon;&iota; &mdash; &ldquo;to live in agreement with nature&rdquo;</div>
@@ -510,7 +510,7 @@ function navTile(id,em,tt,dd){return '<div class="tile" style="cursor:pointer" o
 
 /* ====================== HISTORY / PORCH ====================== */
 document.getElementById('porch-body').innerHTML=
-  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Five centuries</div><h1 style="font-size:clamp(2rem,6vw,3rem)">The Painted Porch</h1><div class="sub">How a shipwrecked merchant&rsquo;s loss became a philosophy that outlived the empire that adopted it.</div></div>'+
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Five centuries</div><h1 style="font-size:clamp(2rem,6vw,3rem)" id="s-the-painted-porch">The Painted Porch</h1><div class="sub">How a shipwrecked merchant&rsquo;s loss became a philosophy that outlived the empire that adopted it.</div></div>'+
   '<p class="lead">Around 300&nbsp;BCE, Zeno of Citium &mdash; a Phoenician-Greek trader who had lost everything in a shipwreck near Athens &mdash; began teaching beneath the <span class="it">Stoa Poikile</span>, a public colonnade hung with battle murals. His followers were first called &ldquo;Zenonians,&rdquo; but soon took their name from the porch itself: the <strong>Stoics</strong>. He is said to have remarked that he made a prosperous voyage when he suffered shipwreck.</p>'+
   secHd('The arc','timeline')+
   '<div class="tl">'+
@@ -535,23 +535,23 @@ function tlc(yr,tt,dd){return '<div class="tl-item crim"><div class="tl-yr">'+yr
 
 /* ====================== THE STOICS ====================== */
 document.getElementById('stoics-body').innerHTML=
-  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Lives &amp; works</div><h1 style="font-size:clamp(2rem,6vw,3rem)">The Stoics</h1><div class="sub">A merchant, a water-carrier, a runner, a statesman, a knight, a slave and an emperor.</div></div>'+
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Lives &amp; works</div><h1 style="font-size:clamp(2rem,6vw,3rem)" id="s-the-stoics">The Stoics</h1><div class="sub">A merchant, a water-carrier, a runner, a statesman, a knight, a slave and an emperor.</div></div>'+
   secHd('The Roman Stoa','the four whose words survive')+
   card('\u{1F451}','Marcus Aurelius','121\u2013180 CE &middot; Emperor &middot; <i>Meditations</i>',
     '<p>Roman emperor (r. 161\u2013180) and the last great ancient Stoic. The <span class="it">Meditations</span> &mdash; Greek <span class="gk">Ta eis heauton</span>, &ldquo;Things to Himself&rdquo; &mdash; is a private journal of Stoic exercises written largely on campaign during the Marcomannic Wars, never intended for publication.</p>'+
-    '<h4>The twelve books</h4><p>Book&nbsp;1 is a chain of gratitude (&ldquo;Debts and Lessons&rdquo;) to family, teachers and the gods; Books&nbsp;2\u201312 are philosophical reminders in no thematic order. Book&nbsp;1 records that he learned of Epictetus when his teacher Junius Rusticus lent him his own copy (1.7).</p>'+
-    '<h4>Recurring themes</h4><ul><li>Impermanence and the nearness of death</li><li>The dichotomy of acceptance and control</li><li>Virtue as the only good; fame and anger as futile</li><li>The unity of humankind under one <span class="gk">logos</span></li></ul>'+
+    '<h4 id="s-the-twelve-books">The twelve books</h4><p>Book&nbsp;1 is a chain of gratitude (&ldquo;Debts and Lessons&rdquo;) to family, teachers and the gods; Books&nbsp;2\u201312 are philosophical reminders in no thematic order. Book&nbsp;1 records that he learned of Epictetus when his teacher Junius Rusticus lent him his own copy (1.7).</p>'+
+    '<h4 id="s-recurring-themes">Recurring themes</h4><ul><li>Impermanence and the nearness of death</li><li>The dichotomy of acceptance and control</li><li>Virtue as the only good; fame and anger as futile</li><li>The unity of humankind under one <span class="gk">logos</span></li></ul>'+
     quote('Waste no more time arguing what a good man should be. Be one.','Marcus Aurelius','Meditations 10.16')+
     quote('The impediment to action advances action. What stands in the way becomes the way.','Marcus Aurelius','Meditations 5.20 (tr. Hays)'))+
   card('\u26D3','Epictetus','c.55\u2013135 CE &middot; Freed slave &middot; <i>Discourses, Enchiridion</i>',
     '<p>Born a slave in Hierapolis, Phrygia, owned by Epaphroditus (a secretary of Nero) and, by tradition, lamed by his master. Freed after Nero&rsquo;s death, he taught in Rome until Domitian expelled the philosophers (c. 93 CE), then founded a school at <strong>Nicopolis</strong> in Greece.</p>'+
     '<p>He wrote nothing. His student <strong>Arrian</strong> recorded the <span class="it">Discourses</span> (four of eight books survive) and distilled them into the 53-chapter <span class="it">Enchiridion</span> (&ldquo;Handbook&rdquo;).</p>'+
-    '<h4>Central teaching</h4><p>The <strong>dichotomy of control</strong> (Enchiridion 1) and the <strong>three disciplines</strong> &mdash; desire, action and assent. He shaped Marcus directly and, through the Handbook, modern psychotherapy.</p>'+
+    '<h4 id="s-central-teaching">Central teaching</h4><p>The <strong>dichotomy of control</strong> (Enchiridion 1) and the <strong>three disciplines</strong> &mdash; desire, action and assent. He shaped Marcus directly and, through the Handbook, modern psychotherapy.</p>'+
     quote('Men are disturbed not by things, but by the views which they take of them.','Epictetus','Enchiridion 5 &mdash; the seed-text of CBT')+
     quote('It is not he who reviles you or strikes you who insults you, but it is your opinion about these things as being insulting.','Epictetus','Enchiridion 20'))+
   card('\u{1F58B}','Seneca','c.4 BCE\u201365 CE &middot; Statesman &middot; <i>Letters to Lucilius</i>',
     '<p>Lucius Annaeus Seneca, born in Corduba (C&oacute;rdoba), Spain. Statesman, dramatist and Stoic. Exiled to Corsica by Claudius (41\u201349 CE), recalled to tutor the young Nero, and effectively co-governing Rome with Burrus in Nero&rsquo;s early reign.</p>'+
-    '<h4>Major works</h4><ul><li>124 <span class="it">Moral Letters to Lucilius</span> (<span class="gk">Epistulae Morales</span>)</li><li><span class="it">On the Shortness of Life</span> (<span class="gk">De Brevitate Vitae</span>)</li><li><span class="it">On Anger</span>, <span class="it">On the Happy Life</span>, <span class="it">On Mercy</span>, <span class="it">On Providence</span>, <span class="it">Natural Questions</span>, and ten tragedies</li></ul>'+
+    '<h4 id="s-major-works">Major works</h4><ul><li>124 <span class="it">Moral Letters to Lucilius</span> (<span class="gk">Epistulae Morales</span>)</li><li><span class="it">On the Shortness of Life</span> (<span class="gk">De Brevitate Vitae</span>)</li><li><span class="it">On Anger</span>, <span class="it">On the Happy Life</span>, <span class="it">On Mercy</span>, <span class="it">On Providence</span>, <span class="it">Natural Questions</span>, and ten tragedies</li></ul>'+
     '<p>Accused of complicity in the Pisonian conspiracy (65 CE), he was ordered by Nero to take his own life; he opened his veins and died slowly, as Tacitus records. He never claimed to be a sage &mdash; only a patient making slow progress.</p>'+
     quote('We suffer more often in imagination than in reality.','Seneca','Letters 13.4 &mdash; <span class="gk">saepius opinione quam re laboramus</span>')+
     quote('It is not that we have a short time to live, but that we waste much of it.','Seneca','On the Shortness of Life 1'))+
@@ -571,7 +571,7 @@ document.getElementById('stoics-body').innerHTML=
     '<p class="disc">Seneca rendered the appended sentiment in Latin: <span class="gk">ducunt volentem fata, nolentem trahunt</span> &mdash; &ldquo;Fate guides the willing, but drags the unwilling&rdquo; (Letter 107.11).</p>')+
   card('\u{1F3C3}','Chrysippus of Soli','c.279\u2013206 BCE &middot; "Second founder"',
     '<p>The third head and great systematizer: &ldquo;If there had been no Chrysippus, there would have been no Stoa&rdquo; (Diogenes Laertius 7.183). A former long-distance runner credited with 700+ works, of which only fragments survive.</p>'+
-    '<h4>His achievements</h4><ul><li>An original <strong>propositional logic</strong> built on whole propositions and connectives (if/then, and, or, not) &mdash; distinct from Aristotle&rsquo;s term logic &mdash; with five &ldquo;indemonstrable&rdquo; argument forms</li><li>A compatibilist defense of <strong>fate and free agency</strong> (the cylinder analogy)</li><li>The Stoic theory of impressions (<span class="gk">phantasiai</span>)</li></ul>'+
+    '<h4 id="s-his-achievements">His achievements</h4><ul><li>An original <strong>propositional logic</strong> built on whole propositions and connectives (if/then, and, or, not) &mdash; distinct from Aristotle&rsquo;s term logic &mdash; with five &ldquo;indemonstrable&rdquo; argument forms</li><li>A compatibilist defense of <strong>fate and free agency</strong> (the cylinder analogy)</li><li>The Stoic theory of impressions (<span class="gk">phantasiai</span>)</li></ul>'+
     '<p class="disc">Tradition says he died of a laughing fit after watching a donkey eat figs.</p>'+
     quote('The universe itself is god and the universal outpouring of its soul.','Chrysippus','as reported by Diogenes Laertius 7.148'))+
   card('\u25EF','Hierocles','2nd c. CE &middot; <i>Elements of Ethics</i>',
@@ -579,7 +579,7 @@ document.getElementById('stoics-body').innerHTML=
 
 /* ====================== DOCTRINES ====================== */
 document.getElementById('doctrine-body').innerHTML=
-  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">The system</div><h1 style="font-size:clamp(2rem,6vw,3rem)">The Doctrines</h1><div class="sub">Physics, logic and ethics &mdash; conceived as one living whole.</div></div>'+
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">The system</div><h1 style="font-size:clamp(2rem,6vw,3rem)" id="s-the-doctrines">The Doctrines</h1><div class="sub">Physics, logic and ethics &mdash; conceived as one living whole.</div></div>'+
   '<div class="note">The Stoics compared their philosophy to an animal &mdash; logic the bones and sinews, ethics the flesh, physics the soul; or to a garden &mdash; logic the wall, physics the orchard, ethics the fruit. The three are inseparable.</div>'+
   secHd('The four cardinal virtues','the only good')+
   '<p>For the Stoics every virtue is a form of <strong>knowledge</strong> (<span class="gk">epist&#275;m&#275;</span>), so every moral failure is at root a cognitive error. The four are unified: to possess one fully is to possess all.</p>'+
@@ -663,7 +663,7 @@ function qfilter(f,btn){
 }
 window.qfilter=qfilter;
 document.getElementById('quotes-body').innerHTML=
-  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Sourced</div><h1 style="font-size:clamp(2rem,6vw,3rem)">The Quotes</h1><div class="sub">The great lines &mdash; cited to source and translator. The four most-shared misquotations are flagged in crimson.</div></div>'+
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Sourced</div><h1 style="font-size:clamp(2rem,6vw,3rem)" id="s-the-quotes">The Quotes</h1><div class="sub">The great lines &mdash; cited to source and translator. The four most-shared misquotations are flagged in crimson.</div></div>'+
   '<div class="chips" id="quote-filters">'+
     '<span class="chip" style="background:var(--gold);color:var(--stone)" onclick="qfilter(\x27all\x27,this)">All</span>'+
     '<span class="chip" onclick="qfilter(\x27real\x27,this)">Verified only</span>'+
@@ -674,7 +674,7 @@ renderQuotes('all');
 
 /* ====================== PRACTICE ====================== */
 document.getElementById('practice-body').innerHTML=
-  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Spiritual exercises</div><h1 style="font-size:clamp(2rem,6vw,3rem)">The Practice</h1><div class="sub">Stoicism was never only a theory. It was a daily training of attention, desire and judgment.</div></div>'+
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Spiritual exercises</div><h1 style="font-size:clamp(2rem,6vw,3rem)" id="s-the-practice">The Practice</h1><div class="sub">Stoicism was never only a theory. It was a daily training of attention, desire and judgment.</div></div>'+
   secHd('Draw a stone','the daily stoic')+
   '<p>Draw a reflection at random &mdash; a sourced line paired with a question to sit with.</p>'+
   '<div style="margin:.6rem 0"><button class="pbtn" onclick="drawStoic()">\u25F4 Draw a reflection</button></div>'+
@@ -724,7 +724,7 @@ window.drawStoic=drawStoic;
 
 /* ====================== MODERN ====================== */
 document.getElementById('modern-body').innerHTML=
-  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">The revival</div><h1 style="font-size:clamp(2rem,6vw,3rem)">Modern Stoicism</h1><div class="sub">From the therapist&rsquo;s couch to the locker room &mdash; an ancient philosophy&rsquo;s improbable second life.</div></div>'+
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">The revival</div><h1 style="font-size:clamp(2rem,6vw,3rem)" id="s-modern-stoicism">Modern Stoicism</h1><div class="sub">From the therapist&rsquo;s couch to the locker room &mdash; an ancient philosophy&rsquo;s improbable second life.</div></div>'+
   card('\u{1F9E0}','Stoicism &amp; Cognitive Therapy','the direct ancestor',
     '<p>Both founders of cognitive therapy credited the Stoics openly. <strong>Albert Ellis</strong>, who built Rational Emotive Behavior Therapy in the 1950s, repeatedly quoted Epictetus &mdash; &ldquo;Men are disturbed not by things, but by the views which they take of them.&rdquo;</p>'+
     '<p><strong>Aaron Beck</strong> and colleagues wrote, in their 1979 manual, that the philosophical origins of cognitive therapy trace back to the Stoics, naming Zeno, Chrysippus, Seneca, Epictetus and Marcus Aurelius. The Stoic <strong>discipline of assent</strong> &mdash; refusing agreement to distorted impressions &mdash; maps directly onto cognitive distancing and modern &ldquo;defusion,&rdquo; and Stoic <span class="gk">prosoch&#275;</span> (attention) prefigures mindfulness.</p>')+
@@ -732,7 +732,7 @@ document.getElementById('modern-body').innerHTML=
     '<p>Viktor Frankl, Holocaust survivor and founder of logotherapy (from <span class="gk">logos</span>, &ldquo;meaning&rdquo;), taught that everything can be taken from a person but one thing &mdash; the freedom to choose one&rsquo;s attitude in any circumstance. Scholars call this unmistakably Stoic: a near-restatement of Epictetus on what remains within our power.</p>')+
   card('\u{1F4DA}','The Contemporary Figures','who carried it forward',
     '<p>The scholarly recovery began with <strong>Pierre Hadot</strong> (<span class="it">Philosophy as a Way of Life</span>; <span class="it">The Inner Citadel</span>), who reframed Stoicism as a set of spiritual exercises rather than abstract theory.</p>'+
-    '<h4>Bringing it to a wide audience</h4><ul>'+
+    '<h4 id="s-bringing-it-to-a-wide-audience">Bringing it to a wide audience</h4><ul>'+
     '<li><strong>William B. Irvine</strong> &mdash; <span class="it">A Guide to the Good Life</span> (2008)</li>'+
     '<li><strong>Donald Robertson</strong> &mdash; <span class="it">How to Think Like a Roman Emperor</span>; a CBT therapist who links the two traditions</li>'+
     '<li><strong>Massimo Pigliucci</strong> &mdash; <span class="it">How to Be a Stoic</span></li>'+
@@ -748,7 +748,7 @@ document.getElementById('modern-body').innerHTML=
 
 /* ====================== AI AGE ====================== */
 document.getElementById('aiage-body').innerHTML=
-  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">The newest frontier</div><h1 style="font-size:clamp(2rem,6vw,3rem)">Stoicism in the AI Age</h1><div class="sub">A philosophy built for things outside our control meets an age defined by them.</div></div>'+
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">The newest frontier</div><h1 style="font-size:clamp(2rem,6vw,3rem)" id="s-stoicism-in-the-ai-age">Stoicism in the AI Age</h1><div class="sub">A philosophy built for things outside our control meets an age defined by them.</div></div>'+
   '<p class="lead">No ancient Stoic imagined the feed, the notification, or the recommender algorithm. Yet the central Stoic move &mdash; sort the world into what is and is not up to you &mdash; may be more useful now than at any time since Nicopolis.</p>'+
   card('\u{1F4F1}','The Attention Economy','prosoch&#275; against the feed',
     '<p>The <strong>dichotomy of control</strong> applies cleanly to digital life: the algorithm, the viral outrage, the count of likes, the opinions of strangers &mdash; none are up to us. Our attention and our judgments are. The Stoic discipline of <span class="gk">prosoch&#275;</span> &mdash; continuous attention to the ruling faculty &mdash; is a direct counter to fragmented, dopamine-driven scrolling.</p>'+
@@ -771,7 +771,7 @@ document.getElementById('aiage-body').innerHTML=
 
 /* ====================== ADVISOR (MARCUS) ====================== */
 document.getElementById('advisor-body').innerHTML=
-  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Counsel</div><h1 style="font-size:clamp(2rem,6vw,3rem)">Consult MARCUS</h1><div class="sub">A Stoic counsel, speaking from the texts in this archive. Bring a real difficulty &mdash; a worry, a decision, an injury, a loss.</div></div>'+
+  '<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Counsel</div><h1 style="font-size:clamp(2rem,6vw,3rem)" id="s-consult-marcus">Consult MARCUS</h1><div class="sub">A Stoic counsel, speaking from the texts in this archive. Bring a real difficulty &mdash; a worry, a decision, an injury, a loss.</div></div>'+
   '<div class="marcus">'+
     '<div class="marcus-hd"><span class="bust">\u{1F5FF}</span><div><div class="nm">MARCUS</div><div class="rl">a Stoic voice &mdash; not the historical emperor</div></div></div>'+
     '<div class="marcus-log" id="marcus-log">'+
@@ -920,7 +920,7 @@ var POSTS=[
 }
 ];
 function renderBlogList(){
-  var h='<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Essays</div><h1 style="font-size:clamp(2rem,6vw,3rem)">The Blog</h1><div class="sub">Why an ancient discipline still matters &mdash; and how it keeps you from losing yourself in an age built to pull you apart.</div></div>';
+  var h='<div class="hero" style="padding-top:1.4rem"><div class="eyebrow">Essays</div><h1 style="font-size:clamp(2rem,6vw,3rem)" id="s-the-blog">The Blog</h1><div class="sub">Why an ancient discipline still matters &mdash; and how it keeps you from losing yourself in an age built to pull you apart.</div></div>';
   h+='<div class="blog-list">';
   POSTS.forEach(function(p){
     h+='<div class="bcard" onclick="openPost(\x27'+p.id+'\x27)">'+
@@ -981,7 +981,7 @@ if(document.readyState==='complete')start();else addEventListener('load',start);
 addEventListener('resize',sched);})();</script><script id="av-shell-20261124">/* AVIDAA shell: shared header (or floating pill) + footer with the "Last updated" stamp. No outside calls, no tracking.
    Template tokens are replaced when a page is built: Stoa --av-knowledge Knowledge 2026-11-24 06:37 */
 (function(){
-  var NAME='Stoa',SECTOR='--av-knowledge',STAMP='2026-11-25 14:28',HOME='https://avidaa1.github.io/';
+  var NAME='Stoa',SECTOR='--av-knowledge',STAMP='2026-11-25 14:45',HOME='https://avidaa1.github.io/';
   var ARROW='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   function build(){
     if(!document.body||document.querySelector('.av-footer'))return;
@@ -1310,6 +1310,112 @@ addEventListener('resize',sched);})();</script><script id="av-shell-20261124">/*
   function init() { theme(); wordmark(); scan(); setTimeout(function () { wordmark(); scan(); }, 1800); try { new MutationObserver(later).observe(document.body, { childList: true, subtree: true }); } catch (e) {} }
   window.__avBrand = { led: function () { return led.length; }, anim: function () { return animCount; }, hue: HUE, max: MAX_LED };
   if (document.readyState === 'complete') setTimeout(init, 300); else addEventListener('load', function () { setTimeout(init, 300); });
+})();
+</script>
+<script id="av-search-20261125">/* AVIDAA site search entry + deep-link highlight v1. No network, no tracking.
+   1) A search button in the shared header (or beside the home pill) and Ctrl+K or "/" open the home search (all pages, sections, tools, games).
+   2) Landing from a search result (#section-id or #find=Section%20name): scroll to the section and highlight it briefly. */
+(function () {
+  'use strict';
+  if (window.__avSearch) return; window.__avSearch = 1;
+  var HOME = 'https://avidaa1.github.io/', isHome = location.hostname.indexOf('github.io') >= 0 && /^\/?(index\.html)?$/.test(location.pathname);
+  var reduced = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var css = '.av-sbtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:44px;min-height:44px;padding:0 12px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(5,8,24,.82);color:#fff;font:800 14px/1 system-ui,sans-serif;cursor:pointer;text-decoration:none;box-shadow:0 0 12px rgba(91,192,255,.3)}' +
+    '.av-sbtn:hover,.av-sbtn:focus-visible{outline:3px solid #FFD93D;outline-offset:2px}.av-sbtn svg{width:20px;height:20px}' +
+    '.av-sbtn.av-fixed{position:fixed;z-index:2147482500}' +
+    '.av-header .av-sbtn{margin-left:auto}' +
+    '@keyframes avHit{0%,100%{box-shadow:0 0 0 0 rgba(255,217,61,0)}30%{box-shadow:0 0 0 6px rgba(255,217,61,.75),0 0 30px 8px rgba(255,217,61,.55)}}' +
+    '.av-hit{outline:3px solid #FFD93D!important;outline-offset:4px;border-radius:6px;animation:avHit 1.1s ease-in-out 2}' +
+    '@media (prefers-reduced-motion:reduce){.av-hit{animation:none}}';
+  try { if (window.CSSStyleSheet && CSSStyleSheet.prototype.replaceSync && 'adoptedStyleSheets' in document) { var sh = new CSSStyleSheet(); sh.replaceSync(css); document.adoptedStyleSheets = document.adoptedStyleSheets.concat([sh]); } else throw 0; }
+  catch (e) { var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st); }
+  function goSearch(q) { location.href = HOME + '?search=1' + (q ? '&q=' + encodeURIComponent(q) : ''); }
+  function mkBtn() {
+    var b = document.createElement('a'); b.className = 'av-sbtn'; b.href = HOME + '?search=1'; b.setAttribute('aria-label', 'Search all AVIDAA pages');
+    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.8"/><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg><span class="av-slbl">Search</span>';
+    return b;
+  }
+  var UI = 'a,button,input,select,textarea,[onclick],[role=button]';
+  function busy(l, t, w, h, self) {
+    for (var yy = 0; yy < 3; yy++) for (var xx = 0; xx < 3; xx++) {
+      var els = document.elementsFromPoint(l + w * (xx + .5) / 3, t + h * (yy + .5) / 3);
+      for (var q = 0; q < els.length; q++) { if (els[q] === self || self.contains(els[q])) continue; if (els[q].matches && els[q].matches(UI)) return true; }
+    } return false;
+  }
+  function place() {
+    if (isHome || document.querySelector('.av-sbtn')) return;
+    var b = mkBtn(), hdr = document.querySelector('.av-header');
+    if (hdr) { hdr.appendChild(b); var hb = b.getBoundingClientRect(); if (hb.right > innerWidth + 1 || hb.left < 0) { b.querySelector('.av-slbl').style.display = 'none'; } return; }
+    var pill = document.querySelector('.av-pill'); if (!pill) return;
+    b.classList.add('av-fixed'); document.body.appendChild(b);
+    var pr = pill.getBoundingClientRect(), bw = b.getBoundingClientRect(), W = bw.width, H = bw.height;
+    var spots = [[pr.right + 8, pr.top], [pr.left - W - 8, pr.top], [pr.left, pr.bottom + 8], [pr.left, pr.top - H - 8]];
+    for (var i = 0; i < spots.length; i++) {
+      var l = spots[i][0], t = spots[i][1]; if (l < 4 || t < 4 || l + W > innerWidth - 4 || t + H > innerHeight - 4) continue;
+      b.style.left = l + 'px'; b.style.top = t + 'px'; if (!busy(l, t, W, H, b)) return;
+    }
+    b.querySelector('.av-slbl').style.display = 'none'; b.remove();   /* no free spot: no button, keyboard shortcut still works */
+  }
+  document.addEventListener('keydown', function (e) {
+    var k = (e.key || '').toLowerCase(), tg = ((document.activeElement || {}).tagName || '');
+    if (isHome) return;
+    if ((e.ctrlKey || e.metaKey) && k === 'k') { e.preventDefault(); goSearch(); }
+    else if (k === '/' && !/INPUT|TEXTAREA|SELECT/.test(tg) && !(document.activeElement && document.activeElement.isContentEditable)) { e.preventDefault(); goSearch(); }
+  });
+  /* ---------- landing from a search result ---------- */
+  var INV = /[​-‏‪-‮⁠-⁤﻿­]/g;
+  function norm(t) { return String(t || '').replace(INV, '').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim(); }
+  function visible(el) { return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length); }
+  function ntext(e) { return norm(e.innerText || e.textContent); }
+  function findByText(t) {
+    var n = norm(t).slice(0, 90), pri = 'h1,h2,h3,h4,h5,[role=tab],button,.tab,.nav-btn,dt,summary,strong,b,[class*="name"],[class*="title"]', best = null, i, x;
+    var els = document.querySelectorAll(pri);
+    for (i = 0; i < els.length; i++) { x = ntext(els[i]); if (x === n) return els[i]; if (!best && x.indexOf(n) === 0 && x.length < n.length + 30) best = els[i]; }
+    if (best) return best;
+    var all = document.body.querySelectorAll('*'), lim = Math.min(all.length, 8000);
+    for (i = 0; i < lim; i++) { var e = all[i]; if (e.children.length > 3 || e.tagName === 'SCRIPT' || e.tagName === 'STYLE') continue; x = ntext(e); if (x === n) return e; }
+    return null;
+  }
+  function esc(v) { return String(v).replace(/["\\]/g, ''); }
+  function controllers(id) {
+    var keys = Array.isArray(id) ? id.slice() : [id]; id = keys[0] || ''; var k2 = id.replace(/^(page|pg|p|panel|tab|sec|section|view|screen)[-_]/i, ''); if (k2 && k2 !== id) keys.push(k2);
+    var sel = [];
+    keys.forEach(function (k) { k = esc(k);
+      sel.push('[aria-controls="' + k + '"]', '[data-tab="' + k + '"]', '[data-target="' + k + '"]', '[data-panel="' + k + '"]', '[data-page="' + k + '"]', '[data-p="' + k + '"]', '[data-view="' + k + '"]', '[data-section="' + k + '"]', 'a[href="#' + k + '"]',
+        '[onclick*="\'' + k + '\'"]', '[onclick*="\\"' + k + '\\""]', '[data-go="' + k + '"]', '[data-nav="' + k + '"]', '[data-open="' + k + '"]', '#nb-' + k, '#nav-' + k, '#tab-' + k, '#btn-' + k, '#np-' + k, '#t-' + k, '#n-' + k);
+    });
+    try { return [].slice.call(document.querySelectorAll(sel.join(','))); } catch (e) { return []; }
+  }
+  function reveal(el) {
+    for (var tries = 0; tries < 5 && !visible(el); tries++) {
+      var hid = null;
+      for (var p = el; p && p !== document.body; p = p.parentElement) { if (!visible(p)) { hid = p; } else if (hid) break; }
+      var cur = el, target = null; for (var q = el; q && q !== document.body; q = q.parentElement) { if (!visible(q) && (q.id || (q.getAttribute && (q.getAttribute('data-path') || q.getAttribute('data-cat'))))) { target = q; } }
+      if (!target) target = hid; if (!target) break;
+      var ks = []; if (target.id) ks.push(target.id); ['data-path', 'data-cat', 'data-tab', 'data-page', 'data-id', 'data-key'].forEach(function (at) { var v = target.getAttribute && target.getAttribute(at); if (v) ks.push(v); }); if (!ks.length) break;
+      var cs = controllers(ks); if (!cs.length) break;
+      for (var c = 0; c < cs.length; c++) { try { cs[c].click(); } catch (e) {} if (visible(el)) return; }
+    }
+  }
+  function flash(el) {
+    try { el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' }); } catch (e) { el.scrollIntoView(); }
+    el.classList.add('av-hit'); setTimeout(function () { el.classList.remove('av-hit'); }, 3200);
+  }
+  function land() {
+    var h = location.hash; if (!h || h.length < 2) return;
+    var want = null, byId = null;
+    try { if (h.indexOf('#find=') === 0) want = decodeURIComponent(h.slice(6)); else byId = decodeURIComponent(h.slice(1)); } catch (e) { return; }
+    var tries = 0;
+    (function attempt() {
+      var el = byId ? document.getElementById(byId) : (want ? findByText(want) : null);
+      if (el) { if (!visible(el)) reveal(el); if (visible(el)) { flash(el); return; } }
+      if (++tries < 22) setTimeout(attempt, 400);
+    })();
+  }
+  window.__avSearch = { goSearch: goSearch, land: land, findByText: findByText };
+  function init() { place(); setTimeout(place, 1500); land(); }
+  if (document.readyState === 'complete') setTimeout(init, 200); else addEventListener('load', function () { setTimeout(init, 200); });
+  addEventListener('hashchange', land);
 })();
 </script>
 </body>
